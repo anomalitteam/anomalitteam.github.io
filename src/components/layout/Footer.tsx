@@ -1,6 +1,7 @@
 "use client";
 
 import { useT } from "@/lib/i18n/context";
+import Link from "next/link";
 
 export function Footer() {
   const { t } = useT();
@@ -19,21 +20,21 @@ export function Footer() {
           </div>
 
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-text-secondary">
-            <a href="#features" className="hover:text-text-primary transition-colors">
+            <Link href="/#features" className="hover:text-text-primary transition-colors">
               {t.footer.features}
-            </a>
-            <a href="#pricing" className="hover:text-text-primary transition-colors">
+            </Link>
+            <Link href="/#pricing" className="hover:text-text-primary transition-colors">
               {t.footer.pricing}
-            </a>
-            <a href="#faq" className="hover:text-text-primary transition-colors">
+            </Link>
+            <Link href="/#faq" className="hover:text-text-primary transition-colors">
               {t.footer.faq}
-            </a>
+            </Link>
             <a href="#" className="hover:text-text-primary transition-colors">
               {t.footer.support}
             </a>
-            <a href="/privacy" className="hover:text-text-primary transition-colors">
+            <Link href="/privacy" className="hover:text-text-primary transition-colors">
               {t.footer.privacy}
-            </a>
+            </Link>
           </nav>
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
@@ -19,11 +20,11 @@ export function Navbar() {
   }, []);
 
   const links = [
-    { label: t.nav.features, href: "#features" },
-    { label: t.nav.howItWorks, href: "#how-it-works" },
-    { label: t.nav.comparison, href: "#comparison" },
-    { label: t.nav.pricing, href: "#pricing" },
-    { label: t.nav.faq, href: "#faq" },
+    { label: t.nav.features, href: "/#features" },
+    { label: t.nav.howItWorks, href: "/#how-it-works" },
+    { label: t.nav.comparison, href: "/#comparison" },
+    { label: t.nav.pricing, href: "/#pricing" },
+    { label: t.nav.faq, href: "/#faq" },
   ];
 
   return (
@@ -35,22 +36,22 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
-        <a href="#" className="flex items-center gap-2 font-bold text-lg text-text-primary">
+        <Link href="/" className="flex items-center gap-2 font-bold text-lg text-text-primary">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-white text-sm font-extrabold">
             EZ
           </span>
           EazyShot
-        </a>
+        </Link>
 
         <div className="hidden md:flex md:items-center md:gap-1">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="px-3 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors rounded-lg"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -77,14 +78,14 @@ export function Navbar() {
       {mobileOpen && (
         <div className="border-t border-border bg-bg-primary px-6 pb-4 pt-2 md:hidden">
           {links.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className="block py-2.5 text-base font-medium text-text-secondary hover:text-text-primary transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           <div className="mt-3">
             <Button size="sm" className="w-full">{t.nav.download}</Button>

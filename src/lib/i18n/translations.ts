@@ -219,7 +219,7 @@ const es: Translations = {
   },
   privacy: {
     title: "Política de Privacidad",
-    lastUpdated: "Última actualización: julio 2026",
+    lastUpdated: "Última actualización: 28 de julio de 2026",
     sections: [
       {
         title: "Introducción",
@@ -511,7 +511,7 @@ const en: Translations = {
   },
   privacy: {
     title: "Privacy Policy",
-    lastUpdated: "Last updated: July 2026",
+    lastUpdated: "Last updated: July 28, 2026",
     sections: [
       {
         title: "Introduction",

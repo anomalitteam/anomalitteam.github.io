@@ -130,7 +130,6 @@ const es: Translations = {
       { feature: "Atajos de teclado personalizables", native: false, eazyshot: true, competition: true },
       { feature: "Color picker integrado", native: false, eazyshot: true, competition: false },
       { feature: "Soporte multi-monitor real", native: false, eazyshot: true, competition: true },
-      { feature: "Hotkeys configurables", native: false, eazyshot: true, competition: true },
       { feature: "Tamaño de anotación configurable", native: false, eazyshot: true, competition: true },
       {
         feature: "Precio",
@@ -425,7 +424,6 @@ const en: Translations = {
       { feature: "Customizable keyboard shortcuts", native: false, eazyshot: true, competition: true },
       { feature: "Built-in color picker", native: false, eazyshot: true, competition: false },
       { feature: "Real multi-monitor support", native: false, eazyshot: true, competition: true },
-      { feature: "Configurable hotkeys", native: false, eazyshot: true, competition: true },
       { feature: "Configurable annotation size", native: false, eazyshot: true, competition: true },
       {
         feature: "Price",

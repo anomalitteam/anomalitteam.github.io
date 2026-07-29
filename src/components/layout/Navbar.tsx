@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { Button } from "@/components/ui/Button";
-import { NAV_LINKS, SITE } from "@/lib/constants";
+import { useT } from "@/lib/i18n/context";
 
 export function Navbar() {
+  const { t } = useT();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -15,6 +17,14 @@ export function Navbar() {
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  const links = [
+    { label: t.nav.features, href: "#features" },
+    { label: t.nav.howItWorks, href: "#how-it-works" },
+    { label: t.nav.comparison, href: "#comparison" },
+    { label: t.nav.pricing, href: "#pricing" },
+    { label: t.nav.faq, href: "#faq" },
+  ];
 
   return (
     <header
@@ -29,11 +39,11 @@ export function Navbar() {
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-white text-sm font-extrabold">
             EZ
           </span>
-          {SITE.name}
+          EazyShot
         </a>
 
         <div className="hidden md:flex md:items-center md:gap-1">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -45,17 +55,19 @@ export function Navbar() {
         </div>
 
         <div className="hidden md:flex md:items-center md:gap-2">
+          <LanguageToggle />
           <ThemeToggle />
-          <Button size="sm">Descargar gratis</Button>
+          <Button size="sm">{t.nav.download}</Button>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
+          <LanguageToggle />
           <ThemeToggle />
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors cursor-pointer"
-            aria-label="Menú"
+            aria-label="Menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -64,7 +76,7 @@ export function Navbar() {
 
       {mobileOpen && (
         <div className="border-t border-border bg-bg-primary px-6 pb-4 pt-2 md:hidden">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -75,7 +87,7 @@ export function Navbar() {
             </a>
           ))}
           <div className="mt-3">
-            <Button size="sm" className="w-full">Descargar gratis</Button>
+            <Button size="sm" className="w-full">{t.nav.download}</Button>
           </div>
         </div>
       )}

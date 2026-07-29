@@ -1,32 +1,39 @@
+"use client";
+
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { comparison } from "@/lib/content";
+import { useT } from "@/lib/i18n/context";
 import { Check, Minus, Zap } from "lucide-react";
 
 export function Comparison() {
+  const { t } = useT();
+  const section = t.comparison;
+
   return (
     <section id="comparison" className="py-20 sm:py-28 bg-bg-secondary">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
-          label="Comparativa"
-          title="EazyShot vs Captura nativa de macOS"
-          description="No tienes que creer en nuestra palabra. Aquí están las diferencias."
+          label={section.label}
+          title={section.title}
+          description={section.description}
         />
 
         <ScrollReveal className="mt-16">
           <div className="overflow-hidden rounded-2xl border border-border bg-bg-primary">
             <div className="grid grid-cols-[1fr,auto,auto] gap-0 divide-y divide-border">
               <div className="contents text-sm font-semibold">
-                <div className="px-6 py-4 text-text-primary">Funcionalidad</div>
+                <div className="px-6 py-4 text-text-primary">
+                  {section.headers.functionality}
+                </div>
                 <div className="px-6 py-4 text-text-secondary text-center">
-                  macOS
+                  {section.headers.macOS}
                 </div>
                 <div className="px-6 py-4 text-accent text-center">
-                  EazyShot
+                  {section.headers.eazyShot}
                 </div>
               </div>
 
-              {comparison.map((row) => (
+              {section.rows.map((row) => (
                 <div
                   key={row.feature}
                   className={`contents text-sm ${

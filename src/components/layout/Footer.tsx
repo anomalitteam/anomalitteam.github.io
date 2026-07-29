@@ -1,6 +1,10 @@
-import { SITE } from "@/lib/constants";
+"use client";
+
+import { useT } from "@/lib/i18n/context";
 
 export function Footer() {
+  const { t } = useT();
+
   return (
     <footer className="border-t border-border bg-bg-secondary">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
@@ -10,36 +14,34 @@ export function Footer() {
               EZ
             </span>
             <span className="text-sm font-semibold text-text-primary">
-              {SITE.name}
+              EazyShot
             </span>
           </div>
 
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-text-secondary">
             <a href="#features" className="hover:text-text-primary transition-colors">
-              Funciones
+              {t.footer.features}
             </a>
             <a href="#pricing" className="hover:text-text-primary transition-colors">
-              Precio
+              {t.footer.pricing}
             </a>
             <a href="#faq" className="hover:text-text-primary transition-colors">
-              FAQ
+              {t.footer.faq}
             </a>
             <a href="#" className="hover:text-text-primary transition-colors">
-              Soporte
+              {t.footer.support}
             </a>
             <a href="#" className="hover:text-text-primary transition-colors">
-              Privacidad
+              {t.footer.privacy}
             </a>
           </nav>
         </div>
 
         <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} {SITE.name}. Hecho para macOS.
+            &copy; {new Date().getFullYear()} EazyShot. {t.footer.copyright}
           </p>
-          <p className="text-xs text-text-secondary">
-            Pago único. Sin suscripciones.
-          </p>
+          <p className="text-xs text-text-secondary">{t.footer.oneTime}</p>
         </div>
       </div>
     </footer>

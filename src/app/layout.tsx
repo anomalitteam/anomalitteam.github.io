@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+import { LanguageProvider } from "@/lib/i18n/context";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SITE } from "@/lib/constants";
+import { translations } from "@/lib/i18n/translations";
 import "./globals.css";
 
 const inter = Inter({
@@ -12,8 +13,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE.name} — ${SITE.tagline}`,
-  description: SITE.description,
+  title: "EazyShot | Professional Screenshots — Capturas profesionales",
+  description: translations.es.meta.description,
   keywords: [
     "screenshot",
     "macOS",
@@ -21,10 +22,11 @@ export const metadata: Metadata = {
     "EazyShot",
     "anotaciones",
     "editor",
+    "annotation",
   ],
   openGraph: {
-    title: `${SITE.name} — ${SITE.tagline}`,
-    description: SITE.description,
+    title: "EazyShot | Professional Screenshots — Capturas profesionales",
+    description: translations.es.meta.description,
     type: "website",
   },
 };
@@ -47,9 +49,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <LanguageProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

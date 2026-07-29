@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "screenshot",
     "macOS",
     "captura de pantalla",
-    "EZShot",
+    "EazyShot",
     "anotaciones",
     "editor",
   ],

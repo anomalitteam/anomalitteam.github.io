@@ -9,7 +9,7 @@ export function HowItWorks() {
         <SectionHeading
           label="Cómo funciona"
           title="Cuatro pasos. Sin complicaciones."
-          description="EZShot está diseñado para ser rápido e intuitivo. Así es como funciona."
+          description="EazyShot está diseñado para ser rápido e intuitivo. Así es como funciona."
         />
 
         <div className="mt-16 relative">

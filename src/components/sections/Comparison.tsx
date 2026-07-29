@@ -9,7 +9,7 @@ export function Comparison() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <SectionHeading
           label="Comparativa"
-          title="EZShot vs Captura nativa de macOS"
+          title="EazyShot vs Captura nativa de macOS"
           description="No tienes que creer en nuestra palabra. Aquí están las diferencias."
         />
 
@@ -22,7 +22,7 @@ export function Comparison() {
                   macOS
                 </div>
                 <div className="px-6 py-4 text-accent text-center">
-                  EZShot
+                  EazyShot
                 </div>
               </div>
 
@@ -49,10 +49,10 @@ export function Comparison() {
                     )}
                   </div>
                   <div className="px-6 py-3.5 text-center">
-                    {row.ezshot === true ? (
+                    {row.eazyshot === true ? (
                       <Check className="mx-auto h-4 w-4 text-accent" />
                     ) : (
-                      <span className="text-accent font-medium">{row.ezshot}</span>
+                      <span className="text-accent font-medium">{row.eazyshot}</span>
                     )}
                   </div>
                 </div>

@@ -23,7 +23,7 @@ export function Pricing() {
 
             <div className="text-center">
               <h3 className="text-lg font-semibold text-text-primary">
-                EZShot Pro
+                EazyShot Pro
               </h3>
               <div className="mt-4 flex items-baseline justify-center gap-1">
                 <span className="text-5xl font-extrabold tracking-tight text-text-primary">

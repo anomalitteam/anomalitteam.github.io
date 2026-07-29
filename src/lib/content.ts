@@ -56,7 +56,7 @@ export const steps = [
     step: 1,
     title: "Activa desde la barra de menú",
     description:
-      "Haz clic en el icono de EZShot en tu barra de menú o usa un atajo de teclado personalizado. La app está siempre a un clic de distancia.",
+      "Haz clic en el icono de EazyShot en tu barra de menú o usa un atajo de teclado personalizado. La app está siempre a un clic de distancia.",
   },
   {
     step: 2,
@@ -82,106 +82,106 @@ export const comparison = [
   {
     feature: "Captura de región",
     native: true,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Captura de pantalla completa",
     native: true,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Editor inline de anotaciones",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Herramienta de blur / censura",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Numeración automática",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Modo rápido al portapapeles",
     native: false,
-    ezshot: true,
+    eazyshot: true,
     highlight: true,
   },
   {
     feature: "Atajos de teclado personalizables",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Color picker integrado",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Soporte multi-monitor real",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Hotkeys configurables",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Tamaño de anotación configurable",
     native: false,
-    ezshot: true,
+    eazyshot: true,
   },
   {
     feature: "Precio",
     native: "Gratis (incluido)",
-    ezshot: "$9.99 pago único",
+    eazyshot: "$9.99 pago único",
   },
 ];
 
 export const faqs = [
   {
-    question: "¿En qué se diferencia EZShot de la captura nativa de macOS?",
+    question: "¿En qué se diferencia EazyShot de la captura nativa de macOS?",
     answer:
-      "EZShot añade un editor de anotaciones inline directamente sobre tu captura, herramientas de blur para censurar, numeración automática para guías, modos 'EZ' ultrarrápidos que copian directo al portapapeles, y atajos de teclado 100% configurables. No necesitas abrir otra app para anotar tus capturas.",
+      "EazyShot añade un editor de anotaciones inline directamente sobre tu captura, herramientas de blur para censurar, numeración automática para guías, modos 'EZ' ultrarrápidos que copian directo al portapapeles, y atajos de teclado 100% configurables. No necesitas abrir otra app para anotar tus capturas.",
   },
   {
-    question: "¿Cuánto cuesta EZShot?",
+    question: "¿Cuánto cuesta EazyShot?",
     answer:
-      "EZShot Pro cuesta $9.99 USD. Es un pago único, sin suscripciones. Lo compras una vez y es tuyo para siempre, con todas las actualizaciones incluidas.",
+      "EazyShot Pro cuesta $9.99 USD. Es un pago único, sin suscripciones. Lo compras una vez y es tuyo para siempre, con todas las actualizaciones incluidas.",
   },
   {
     question: "¿Hay versión de prueba?",
     answer:
-      "Sí. Tienes 3 días de prueba gratuita con todas las funciones. Puedes usar EZShot sin limitaciones durante el período de prueba y decidir si comprarlo después.",
+      "Sí. Tienes 3 días de prueba gratuita con todas las funciones. Puedes usar EazyShot sin limitaciones durante el período de prueba y decidir si comprarlo después.",
   },
   {
     question: "¿Qué versiones de macOS soporta?",
     answer:
-      "EZShot funciona en macOS 14 (Sonoma) y versiones posteriores, incluyendo la última versión de macOS. Requiere Apple Silicon o Intel Mac.",
+      "EazyShot funciona en macOS 14 (Sonoma) y versiones posteriores, incluyendo la última versión de macOS. Requiere Apple Silicon o Intel Mac.",
   },
   {
     question: "¿Las actualizaciones son gratuitas?",
     answer:
-      "Sí. La compra de EZShot Pro incluye todas las actualizaciones futuras sin costo adicional. Pagas una vez y recibes las mejoras de por vida.",
+      "Sí. La compra de EazyShot Pro incluye todas las actualizaciones futuras sin costo adicional. Pagas una vez y recibes las mejoras de por vida.",
   },
   {
     question: "¿Puedo usar la licencia en varios Macs?",
     answer:
-      "Sí. Tu licencia de EZShot Pro es personal y puedes usarla en todos tus Macs personales vinculados a tu cuenta de Apple.",
+      "Sí. Tu licencia de EazyShot Pro es personal y puedes usarla en todos tus Macs personales vinculados a tu cuenta de Apple.",
   },
   {
     question: "¿Cómo funcionan los atajos de teclado?",
     answer:
-      "Puedes asignar combinaciones de teclas personalizadas a cada acción de EZShot desde los ajustes. Los atajos funcionan en todo el sistema, incluso cuando la app no está en primer plano. Usa Command, Control, Option o Shift + cualquier tecla.",
+      "Puedes asignar combinaciones de teclas personalizadas a cada acción de EazyShot desde los ajustes. Los atajos funcionan en todo el sistema, incluso cuando la app no está en primer plano. Usa Command, Control, Option o Shift + cualquier tecla.",
   },
   {
     question: "¿Dónde se guardan las capturas?",
     answer:
-      "Por defecto, las capturas se guardan en ~/Pictures/EZShot/. Puedes cambiar la carpeta de destino desde los ajustes de la app en cualquier momento.",
+      "Por defecto, las capturas se guardan en ~/Pictures/EazyShot/. Puedes cambiar la carpeta de destino desde los ajustes de la app en cualquier momento.",
   },
 ];
 

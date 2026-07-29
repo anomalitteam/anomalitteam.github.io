@@ -10,7 +10,7 @@ export function Faq() {
         <SectionHeading
           label="FAQ"
           title="Preguntas frecuentes"
-          description="Respuestas directas a las dudas más comunes sobre EZShot."
+          description="Respuestas directas a las dudas más comunes sobre EazyShot."
         />
 
         <ScrollReveal className="mt-16 mx-auto max-w-2xl">

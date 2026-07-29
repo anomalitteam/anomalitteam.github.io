@@ -1,8 +1,8 @@
 export const SITE = {
-  name: "EZShot",
+  name: "EazyShot",
   tagline: "Capturas de pantalla profesionales en segundos",
   description:
-    "EZShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
+    "EazyShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
   url: "https://fairydreamstudio.github.io",
   price: "$9.99 USD",
   trialDays: 3,

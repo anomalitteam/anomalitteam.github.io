@@ -20,16 +20,19 @@ export function Comparison() {
 
         <ScrollReveal className="mt-16">
           <div className="overflow-hidden rounded-2xl border border-border bg-bg-primary">
-            <div className="grid grid-cols-[1fr,auto,auto] gap-0 divide-y divide-border">
+            <div className="grid grid-cols-[1fr,auto,auto,auto] gap-0 divide-y divide-border">
               <div className="contents text-sm font-semibold">
                 <div className="px-6 py-4 text-text-primary">
                   {section.headers.functionality}
                 </div>
-                <div className="px-6 py-4 text-text-secondary text-center">
+                <div className="px-6 py-4 text-text-secondary text-center min-w-[80px]">
                   {section.headers.macOS}
                 </div>
-                <div className="px-6 py-4 text-accent text-center">
+                <div className="px-6 py-4 text-accent text-center min-w-[100px]">
                   {section.headers.eazyShot}
+                </div>
+                <div className="px-6 py-4 text-text-secondary text-center min-w-[100px]">
+                  {section.headers.competition}
                 </div>
               </div>
 
@@ -52,14 +55,23 @@ export function Comparison() {
                     ) : row.native === false ? (
                       <Minus className="mx-auto h-4 w-4 text-border" />
                     ) : (
-                      <span className="text-text-secondary">{row.native}</span>
+                      <span className="text-text-secondary text-xs">{row.native}</span>
                     )}
                   </div>
                   <div className="px-6 py-3.5 text-center">
                     {row.eazyshot === true ? (
                       <Check className="mx-auto h-4 w-4 text-accent" />
                     ) : (
-                      <span className="text-accent font-medium">{row.eazyshot}</span>
+                      <span className="text-accent font-medium text-xs">{row.eazyshot}</span>
+                    )}
+                  </div>
+                  <div className="px-6 py-3.5 text-center">
+                    {row.competition === true ? (
+                      <Check className="mx-auto h-4 w-4 text-text-secondary" />
+                    ) : row.competition === false ? (
+                      <Minus className="mx-auto h-4 w-4 text-border" />
+                    ) : (
+                      <span className="text-text-secondary text-xs">{row.competition}</span>
                     )}
                   </div>
                 </div>

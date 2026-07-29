@@ -44,6 +44,7 @@ export interface ComparisonRow {
   feature: string;
   native: string | boolean;
   eazyshot: string | boolean;
+  competition: string | boolean;
   highlight?: boolean;
 }
 
@@ -95,7 +96,7 @@ export interface Translations {
   features: Section & { items: FeatureItem[] };
   howItWorks: Section & { items: StepItem[] };
   comparison: Section & {
-    headers: { functionality: string; macOS: string; eazyShot: string };
+    headers: { functionality: string; macOS: string; eazyShot: string; competition: string };
     rows: ComparisonRow[];
   };
   pricing: PricingTranslations;

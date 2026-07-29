@@ -217,6 +217,80 @@ const es: Translations = {
     copyright: "Hecho para macOS.",
     oneTime: "Pago único. Sin suscripciones.",
   },
+  privacy: {
+    title: "Política de Privacidad",
+    lastUpdated: "Última actualización: julio 2026",
+    sections: [
+      {
+        title: "Introducción",
+        body: [
+          "EazyShot es una aplicación de captura de pantalla para macOS desarrollada por Fairy Dream Studio. Esta política de privacidad explica cómo manejamos tus datos y tus capturas de pantalla. Al usar EazyShot, aceptas las prácticas descritas en este documento.",
+        ],
+      },
+      {
+        title: "Datos que NO recolectamos",
+        body: [
+          "EazyShot es una aplicación 100% offline. No recolectamos, almacenamos ni transmitimos ningún dato personal a servidores externos. La aplicación no requiere registro, no utiliza cuentas de usuario y no envía información de ningún tipo a través de internet.",
+          "No recolectamos datos de uso, estadísticas de funcionalidades, información del dispositivo, dirección IP, ubicación ni ningún otro tipo de dato personal o anónimo.",
+        ],
+      },
+      {
+        title: "Datos almacenados localmente",
+        body: [
+          "Todas tus preferencias y configuraciones se almacenan exclusivamente en tu Mac. Esto incluye:",
+          "— Atajos de teclado personalizados",
+          "— Preferencias de tema (claro/oscuro)",
+          "— Carpeta de destino para guardar capturas",
+          "— Historial de colores del Color Picker (últimos 10 colores)",
+          "— Configuración de herramientas de anotación (color, tamaño)",
+          "Estos datos nunca abandonan tu dispositivo y se almacenan en los mecanismos estándar de macOS (UserDefaults) dentro del sandbox de la aplicación.",
+        ],
+      },
+      {
+        title: "Capturas de pantalla",
+        body: [
+          "Las capturas de pantalla que realizas con EazyShot se guardan por defecto en la carpeta ~/Pictures/EazyShot/ de tu Mac. Puedes cambiar esta ubicación en cualquier momento desde los ajustes de la aplicación.",
+          "EazyShot nunca accede, analiza, modifica ni transmite el contenido de tus capturas de pantalla. Tú tienes control total sobre qué haces con tus capturas: copiarlas al portapapeles, guardarlas como archivo PNG o compartirlas manualmente a través de otras aplicaciones.",
+        ],
+      },
+      {
+        title: "Permisos del sistema",
+        body: [
+          "Para funcionar correctamente, EazyShot solicita los siguientes permisos de macOS:",
+          "— Permiso de Accesibilidad: necesario para capturar atajos de teclado globales y detectar eventos del sistema.",
+          "— Permiso de Grabación de Pantalla: requerido por macOS para que la aplicación pueda realizar capturas de pantalla.",
+          "Estos permisos son solicitados por el sistema operativo y son estrictamente necesarios para el funcionamiento básico de la aplicación. EazyShot no utiliza estos permisos para ningún otro propósito.",
+        ],
+      },
+      {
+        title: "Servicios de terceros",
+        body: [
+          "EazyShot no integra servicios de terceros. No utilizamos herramientas de analítica, publicidad, rastreo ni ningún SDK externo que pueda recolectar información. La aplicación funciona de manera completamente independiente en tu Mac.",
+        ],
+      },
+      {
+        title: "Compras y licencias",
+        body: [
+          "La compra de EazyShot Pro se procesa a través de la plataforma que elijas para adquirir la licencia. Fairy Dream Studio no recolecta ni almacena información de pago. Los datos de tu transacción son manejados exclusivamente por el procesador de pagos correspondiente.",
+        ],
+      },
+      {
+        title: "Cambios a esta política",
+        body: [
+          "Si en el futuro se realizaran cambios a esta política de privacidad, la versión actualizada se publicará en esta misma página indicando la fecha de actualización. Te recomendamos revisar esta página periódicamente.",
+          "En caso de que EazyShot incorporara funcionalidades que requieran conexión a internet (como verificación de licencias o actualizaciones automáticas), esta política se actualizará para reflejar dichos cambios antes de su implementación.",
+        ],
+      },
+      {
+        title: "Contacto",
+        body: [
+          "Si tienes preguntas sobre esta política de privacidad o sobre el manejo de tus datos en EazyShot, puedes contactarnos en:",
+        ],
+      },
+    ],
+    contact: "Para cualquier consulta sobre privacidad, escríbenos a:",
+    contactEmail: "fairydreamstudio@gmail.com",
+  },
 };
 
 const en: Translations = {
@@ -434,6 +508,80 @@ const en: Translations = {
     privacy: "Privacy",
     copyright: "Made for macOS.",
     oneTime: "One-time payment. No subscriptions.",
+  },
+  privacy: {
+    title: "Privacy Policy",
+    lastUpdated: "Last updated: July 2026",
+    sections: [
+      {
+        title: "Introduction",
+        body: [
+          "EazyShot is a screenshot application for macOS developed by Fairy Dream Studio. This privacy policy explains how we handle your data and screenshots. By using EazyShot, you agree to the practices described in this document.",
+        ],
+      },
+      {
+        title: "Data We Do NOT Collect",
+        body: [
+          "EazyShot is a 100% offline application. We do not collect, store, or transmit any personal data to external servers. The application does not require registration, does not use user accounts, and does not send any information over the internet.",
+          "We do not collect usage data, feature statistics, device information, IP addresses, location data, or any other type of personal or anonymous data.",
+        ],
+      },
+      {
+        title: "Locally Stored Data",
+        body: [
+          "All your preferences and settings are stored exclusively on your Mac. This includes:",
+          "— Custom keyboard shortcuts",
+          "— Theme preferences (light/dark)",
+          "— Destination folder for saving screenshots",
+          "— Color Picker history (last 10 colors)",
+          "— Annotation tool settings (color, size)",
+          "This data never leaves your device and is stored using standard macOS mechanisms (UserDefaults) within the application sandbox.",
+        ],
+      },
+      {
+        title: "Screenshots",
+        body: [
+          "Screenshots taken with EazyShot are saved by default in the ~/Pictures/EazyShot/ folder on your Mac. You can change this location at any time from the application settings.",
+          "EazyShot never accesses, analyzes, modifies, or transmits the content of your screenshots. You have full control over what you do with your captures: copy them to the clipboard, save them as PNG files, or share them manually through other applications.",
+        ],
+      },
+      {
+        title: "System Permissions",
+        body: [
+          "To function properly, EazyShot requests the following macOS permissions:",
+          "— Accessibility permission: required to capture global keyboard shortcuts and detect system events.",
+          "— Screen Recording permission: required by macOS for the application to take screenshots.",
+          "These permissions are requested by the operating system and are strictly necessary for the basic functionality of the application. EazyShot does not use these permissions for any other purpose.",
+        ],
+      },
+      {
+        title: "Third-Party Services",
+        body: [
+          "EazyShot does not integrate any third-party services. We do not use analytics tools, advertising, tracking, or any external SDKs that could collect information. The application runs entirely independently on your Mac.",
+        ],
+      },
+      {
+        title: "Purchases and Licenses",
+        body: [
+          "The purchase of EazyShot Pro is processed through the platform you choose to acquire the license. Fairy Dream Studio does not collect or store payment information. Your transaction data is handled exclusively by the corresponding payment processor.",
+        ],
+      },
+      {
+        title: "Changes to This Policy",
+        body: [
+          "If changes are made to this privacy policy in the future, the updated version will be published on this same page with the update date indicated. We recommend checking this page periodically.",
+          "If EazyShot were to incorporate features requiring an internet connection (such as license verification or automatic updates), this policy will be updated to reflect those changes before their implementation.",
+        ],
+      },
+      {
+        title: "Contact",
+        body: [
+          "If you have questions about this privacy policy or about how your data is handled in EazyShot, you can contact us at:",
+        ],
+      },
+    ],
+    contact: "For any privacy inquiries, reach out to us at:",
+    contactEmail: "fairydreamstudio@gmail.com",
   },
 };
 

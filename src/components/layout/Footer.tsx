@@ -31,7 +31,7 @@ export function Footer() {
             <a href="#" className="hover:text-text-primary transition-colors">
               {t.footer.support}
             </a>
-            <a href="#" className="hover:text-text-primary transition-colors">
+            <a href="/privacy" className="hover:text-text-primary transition-colors">
               {t.footer.privacy}
             </a>
           </nav>

@@ -75,6 +75,19 @@ export interface FooterTranslations {
   oneTime: string;
 }
 
+export interface PrivacySection {
+  title: string;
+  body: string[];
+}
+
+export interface PrivacyTranslations {
+  title: string;
+  lastUpdated: string;
+  sections: PrivacySection[];
+  contact: string;
+  contactEmail: string;
+}
+
 export interface Translations {
   meta: Meta;
   nav: NavLinks;
@@ -88,4 +101,5 @@ export interface Translations {
   pricing: PricingTranslations;
   faq: Section & { items: FaqItem[] };
   footer: FooterTranslations;
+  privacy: PrivacyTranslations;
 }

@@ -82,24 +82,28 @@ const es: Translations = {
         title: "Activa desde la barra de menú",
         description:
           "Haz clic en el icono de EazyShot en tu barra de menú o usa un atajo de teclado personalizado. La app está siempre a un clic de distancia.",
+        image: "/images/funcion-1.png",
       },
       {
         step: 2,
         title: "Selecciona o captura",
         description:
           "Arrastra para seleccionar una región o captura la pantalla completa. El overlay cubre todos tus monitores.",
+        image: "/images/funcion-2.png",
       },
       {
         step: 3,
         title: "Anota si lo necesitas",
         description:
           "Añade rectángulos, flechas, texto, blur para ocultar información sensible, o numeración para guías paso a paso.",
+        image: "/images/funcion-3.png",
       },
       {
         step: 4,
         title: "Copia o guarda",
         description:
           "Copia al portapapeles con Cmd+C o guarda como PNG en tu carpeta preferida. En modo EZ, va directo al portapapeles.",
+        image: "/images/funcion-4.png",
       },
     ],
   },
@@ -377,24 +381,28 @@ const en: Translations = {
         title: "Activate from the menu bar",
         description:
           "Click the EazyShot icon in your menu bar or use a custom keyboard shortcut. The app is always one click away.",
+        image: "/images/funcion-1.png",
       },
       {
         step: 2,
         title: "Select or capture",
         description:
           "Drag to select a region or capture the full screen. The overlay covers all your monitors.",
+        image: "/images/funcion-2.png",
       },
       {
         step: 3,
         title: "Annotate if needed",
         description:
           "Add rectangles, arrows, text, blur to hide sensitive info, or numbering for step-by-step guides.",
+        image: "/images/funcion-3.png",
       },
       {
         step: 4,
         title: "Copy or save",
         description:
           "Copy to clipboard with Cmd+C or save as PNG in your preferred folder. In EZ mode, it goes directly to clipboard.",
+        image: "/images/funcion-4.png",
       },
     ],
   },

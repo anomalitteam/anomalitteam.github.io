@@ -3,6 +3,7 @@
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useT } from "@/lib/i18n/context";
+import Image from "next/image";
 
 export function HowItWorks() {
   const { t } = useT();
@@ -17,29 +18,45 @@ export function HowItWorks() {
           description={section.description}
         />
 
-        <div className="mt-16 relative">
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden sm:block" />
+        <div className="mt-16 space-y-16 sm:space-y-20">
+          {section.items.map((step, index) => {
+            const isEven = index % 2 === 1;
 
-          <div className="space-y-12">
-            {section.items.map((step) => (
+            return (
               <ScrollReveal key={step.step}>
-                <div className="relative flex gap-6 sm:gap-10">
-                  <div className="relative z-10 flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-accent text-white text-xl font-bold shadow-sm">
-                    {step.step}
+                <div
+                  className={`flex flex-col gap-8 ${
+                    isEven ? "md:flex-row-reverse" : "md:flex-row"
+                  } items-center`}
+                >
+                  <div className="flex-1 flex gap-5 sm:gap-6">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-accent text-white text-lg font-bold shadow-sm">
+                      {step.step}
+                    </div>
+                    <div className="pt-0.5">
+                      <h3 className="text-xl font-semibold text-text-primary">
+                        {step.title}
+                      </h3>
+                      <p className="mt-2 text-text-secondary leading-relaxed max-w-lg">
+                        {step.description}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="pt-1">
-                    <h3 className="text-xl font-semibold text-text-primary">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-text-secondary leading-relaxed max-w-lg">
-                      {step.description}
-                    </p>
+                  <div className="flex-1 flex justify-center">
+                    <Image
+                      src={step.image}
+                      alt={step.title}
+                      width={560}
+                      height={350}
+                      unoptimized
+                      className="rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 max-w-full h-auto"
+                    />
                   </div>
                 </div>
               </ScrollReveal>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>

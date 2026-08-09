@@ -29,7 +29,7 @@ export function Footer() {
             <Link href="/#faq" className="hover:text-text-primary transition-colors">
               {t.footer.faq}
             </Link>
-            <a href="#" className="hover:text-text-primary transition-colors">
+            <a href="/support" className="hover:text-text-primary transition-colors">
               {t.footer.support}
             </a>
             <Link href="/privacy" className="hover:text-text-primary transition-colors">

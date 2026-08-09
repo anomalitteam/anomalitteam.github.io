@@ -90,6 +90,16 @@ export interface PrivacyTranslations {
   contactEmail: string;
 }
 
+export interface SupportTranslations {
+  title: string;
+  intro: string;
+  emailLabel: string;
+  email: string;
+  infoTitle: string;
+  infoItems: string[];
+  responseTime: string;
+}
+
 export interface Translations {
   meta: Meta;
   nav: NavLinks;
@@ -104,4 +114,5 @@ export interface Translations {
   faq: Section & { items: FaqItem[] };
   footer: FooterTranslations;
   privacy: PrivacyTranslations;
+  support: SupportTranslations;
 }

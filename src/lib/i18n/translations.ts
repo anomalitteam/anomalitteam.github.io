@@ -19,7 +19,7 @@ const es: Translations = {
     description:
       "EazyShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
     cta: "Descargar prueba gratis",
-    priceNote: "Pago único · $79 MXN · 3 días de prueba",
+    priceNote: "Pago único · $69 MXN · 3 días de prueba",
   },
   features: {
     label: "Funciones",
@@ -138,7 +138,7 @@ const es: Translations = {
       {
         feature: "Precio",
         native: "Gratis (incluido)",
-        eazyshot: "$79 MXN",
+        eazyshot: "$69 MXN",
         competition: "~$499 MXN",
       },
     ],
@@ -150,7 +150,7 @@ const es: Translations = {
       "Sin suscripciones. Sin pagos recurrentes. Lo compras una vez y es tuyo.",
     badge: "Pago único",
     planName: "EazyShot Pro",
-    price: "$79 MXN",
+    price: "$69 MXN",
     cta: "Descargar prueba gratis",
     trial: "3 días de prueba gratuita con todas las funciones",
     includesTitle: "Todo incluido",
@@ -180,7 +180,7 @@ const es: Translations = {
       {
         question: "¿Cuánto cuesta EazyShot?",
         answer:
-          "EazyShot Pro cuesta $79 MXN. Es un pago único, sin suscripciones. Lo compras una vez y es tuyo para siempre, con todas las actualizaciones incluidas.",
+          "EazyShot Pro cuesta $69 MXN. Es un pago único, sin suscripciones. Lo compras una vez y es tuyo para siempre, con todas las actualizaciones incluidas.",
       },
       {
         question: "¿Hay versión de prueba?",
@@ -332,7 +332,7 @@ const en: Translations = {
     description:
       "EazyShot is the screenshot tool every Mac user needs. Annotate, censor, number, and share screenshots instantly from the menu bar.",
     cta: "Download Free Trial",
-    priceNote: "One-time · $3.99 USD · 3-day trial",
+    priceNote: "One-time · $2.99 USD · 3-day trial",
   },
   features: {
     label: "Features",
@@ -450,7 +450,7 @@ const en: Translations = {
       {
         feature: "Price",
         native: "Free (included)",
-        eazyshot: "$3.99 USD",
+        eazyshot: "$2.99 USD",
         competition: "~$29 USD",
       },
     ],
@@ -462,7 +462,7 @@ const en: Translations = {
       "No subscriptions. No recurring payments. Buy it once and it's yours.",
     badge: "One-Time",
     planName: "EazyShot Pro",
-    price: "$3.99 USD",
+    price: "$2.99 USD",
     cta: "Download Free Trial",
     trial: "3-day free trial with all features",
     includesTitle: "Everything Included",
@@ -492,7 +492,7 @@ const en: Translations = {
       {
         question: "How much does EazyShot cost?",
         answer:
-          "EazyShot Pro costs $3.99 USD. It's a one-time payment, no subscriptions. Buy it once and it's yours forever, with all updates included.",
+          "EazyShot Pro costs $2.99 USD. It's a one-time payment, no subscriptions. Buy it once and it's yours forever, with all updates included.",
       },
       {
         question: "Is there a trial version?",

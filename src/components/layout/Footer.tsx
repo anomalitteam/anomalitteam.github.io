@@ -2,6 +2,7 @@
 
 import { useT } from "@/lib/i18n/context";
 import Link from "next/link";
+import Image from "next/image";
 
 export function Footer() {
   const { t } = useT();
@@ -11,11 +12,16 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-accent text-white text-xs font-extrabold">
-              EZ
-            </span>
+            <Image
+              src="/images/app-icon.png"
+              alt="EazyShot"
+              width={28}
+              height={28}
+              unoptimized
+              className="rounded-md"
+            />
             <span className="text-sm font-semibold text-text-primary">
-              EazyShot
+              <span className="text-ez">E</span>a<span className="text-ez">z</span>yShot
             </span>
           </div>
 

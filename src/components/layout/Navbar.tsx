@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
@@ -37,10 +38,17 @@ export function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg text-text-primary">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-white text-sm font-extrabold">
-            EZ
+          <Image
+            src="/images/app-icon.png"
+            alt="EazyShot"
+            width={32}
+            height={32}
+            unoptimized
+            className="rounded-lg"
+          />
+          <span>
+            <span className="text-ez">E</span>a<span className="text-ez">z</span>yShot
           </span>
-          EazyShot
         </Link>
 
         <div className="hidden md:flex md:items-center md:gap-1">

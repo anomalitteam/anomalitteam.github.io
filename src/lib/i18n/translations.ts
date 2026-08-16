@@ -19,7 +19,7 @@ const es: Translations = {
   },
   studio: {
     meta: {
-      title: "Anomaly Team — Apps para Mac",
+      title: "Anomalit Team — Apps para Mac",
       description:
         "Estudio independiente de aplicaciones para el ecosistema de Apple. Herramientas cuidadas, sin suscripciones y con pago único.",
     },
@@ -263,7 +263,7 @@ const es: Translations = {
       {
         title: "Introducción",
         body: [
-          "EazyShot es una aplicación de captura de pantalla para macOS desarrollada por Anomaly Team. Esta política de privacidad explica cómo manejamos tus datos y tus capturas de pantalla. Al usar EazyShot, aceptas las prácticas descritas en este documento.",
+          "EazyShot es una aplicación de captura de pantalla para macOS desarrollada por Anomalit Team. Esta política de privacidad explica cómo manejamos tus datos y tus capturas de pantalla. Al usar EazyShot, aceptas las prácticas descritas en este documento.",
         ],
       },
       {
@@ -310,7 +310,7 @@ const es: Translations = {
       {
         title: "Compras y licencias",
         body: [
-          "La compra de EazyShot Pro se procesa a través de la plataforma que elijas para adquirir la licencia. Anomaly Team no recolecta ni almacena información de pago. Los datos de tu transacción son manejados exclusivamente por el procesador de pagos correspondiente.",
+          "La compra de EazyShot Pro se procesa a través de la plataforma que elijas para adquirir la licencia. Anomalit Team no recolecta ni almacena información de pago. Los datos de tu transacción son manejados exclusivamente por el procesador de pagos correspondiente.",
         ],
       },
       {
@@ -365,7 +365,7 @@ const en: Translations = {
   },
   studio: {
     meta: {
-      title: "Anomaly Team — Mac Apps",
+      title: "Anomalit Team — Mac Apps",
       description:
         "Independent studio building apps for the Apple ecosystem. Carefully crafted tools, no subscriptions, one-time payment.",
     },
@@ -608,7 +608,7 @@ const en: Translations = {
       {
         title: "Introduction",
         body: [
-          "EazyShot is a screenshot application for macOS developed by Anomaly Team. This privacy policy explains how we handle your data and screenshots. By using EazyShot, you agree to the practices described in this document.",
+          "EazyShot is a screenshot application for macOS developed by Anomalit Team. This privacy policy explains how we handle your data and screenshots. By using EazyShot, you agree to the practices described in this document.",
         ],
       },
       {
@@ -655,7 +655,7 @@ const en: Translations = {
       {
         title: "Purchases and Licenses",
         body: [
-          "The purchase of EazyShot Pro is processed through the platform you choose to acquire the license. Anomaly Team does not collect or store payment information. Your transaction data is handled exclusively by the corresponding payment processor.",
+          "The purchase of EazyShot Pro is processed through the platform you choose to acquire the license. Anomalit Team does not collect or store payment information. Your transaction data is handled exclusively by the corresponding payment processor.",
         ],
       },
       {

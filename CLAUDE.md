@@ -4,15 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Proyecto
 
-EzWeb es el sitio público de **Anomaly Team**: un escaparate de los proyectos del
-equipo. Hoy contiene un único producto, **EazyShot**, la app de capturas de
+EzWeb es el sitio público de **Anomalit Team**: un escaparate de los proyectos
+del equipo. Hoy contiene un único producto, **EazyShot**, la app de capturas de
 pantalla para macOS.
 
 El nombre cambió en agosto de 2026 (antes *Fairy Dream Studio*, y brevemente
-*Anomalit Future*): nombre, dominio y correo se movieron a la vez. Si te
-encuentras `fairydreamstudio` o `anomalitfuture` en algún sitio —el remoto de git
-de una copia local, un marcador, la ficha del App Store— es un resto de esa
-migración y hay que corregirlo, no conservarlo.
+*Anomalit Future* y *Anomaly Team*): nombre, dominio y correo se movieron a la
+vez, y ahora los tres dicen `anomalitteam`. Si te encuentras `fairydreamstudio`,
+`anomalitfuture` o `anomalyteam` en algún sitio —el remoto de git de una copia
+local, un marcador, la ficha del App Store— es un resto de esa migración y hay
+que corregirlo, no conservarlo.
 
 - Repo de despliegue: `anomalitteam/anomalitteam.github.io` — organización y
   repo se llaman igual, y **eso no es cosmético**: es lo único que hace que
@@ -87,6 +88,7 @@ pnpm dev        # servidor de desarrollo
 pnpm build      # export estático → out/
 pnpm lint       # eslint
 pnpm typecheck  # tsc --noEmit
+pnpm og         # regenera las imágenes Open Graph y el favicon (ver más abajo)
 ```
 
 `pnpm` es obligatorio: el workflow instala con `--frozen-lockfile` contra
@@ -175,6 +177,30 @@ componente. **No enlaces un CTA a mano desde una sección.**
 con `target="_blank"` y `rel="noopener noreferrer"`; el resto va por `<Link>`.
 Sin `href`, o con `disabled`, sale como `<button>`.
 
+### Las imágenes generadas se versionan como PNG, y hay un motivo
+
+Las Open Graph y el favicon del equipo salen de `next/og`, pero **sus fuentes
+viven en `scripts/og/`, fuera de `app/`**, y lo que se versiona es el PNG ya
+cocinado (`src/app/opengraph-image.png`, `src/app/eazyshot/opengraph-image.png`,
+`src/app/icon.png`).
+
+El motivo: con la convención normal (`app/opengraph-image.tsx`), Next emite la
+imagen en una ruta **sin extensión** (`out/opengraph-image`). GitHub Pages decide
+el `Content-Type` por la extensión, así que la serviría como
+`application/octet-stream` y los scrapers de WhatsApp, Slack o X la descartan —
+la tarjeta sale sin imagen, que es justo lo que se venía a arreglar.
+
+Para regenerarlas tras cambiar un texto o el color de marca:
+
+```bash
+pnpm og     # copia las fuentes a app/, construye, guarda los PNG y limpia
+```
+
+Cualquier ruta de metadata generada (`sitemap.ts`, `robots.ts`, `opengraph-image`)
+necesita además `export const dynamic = "force-static"`, o `output: "export"`
+falla al recolectarla. `sitemap.ts` se arma desde `PRODUCT_LIST`, así que un
+producto nuevo entra solo; los puentes quedan fuera por ser `noindex`.
+
 ### i18n propio, no `next-intl` ni rutas por idioma
 
 `LanguageProvider` (`lib/i18n/context.tsx`) monta siempre en `"es"`, y en un
@@ -254,8 +280,9 @@ Observaciones, no tareas asignadas. Confirmar antes de actuar.
   versión EN no es indexable y los lectores de pantalla anuncian el idioma
   equivocado. Con `output: export` la solución es una ruta `/en` real, no el
   toggle de cliente.
-- **Metadata:** ya hay `metadataBase` y `canonical` por ruta. Siguen faltando
-  imagen OG, `twitter` card, `robots.txt` y `sitemap.xml`.
+- **Metadata:** completa para lo esencial — `metadataBase`, canonical por ruta,
+  Open Graph con imagen, `twitter:card` grande, `sitemap.xml` y `robots.txt`.
+  Lo que falta es una OG en inglés, que depende de las rutas por idioma.
 - **Parpadeo de idioma** para usuarios con navegador en inglés: el contenido se
   pinta en español y cambia al hidratar. El tema ya resuelve este mismo problema
   con un placeholder; el idioma no.

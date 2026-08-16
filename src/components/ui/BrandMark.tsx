@@ -36,7 +36,7 @@ export function EazyShotMark({ size = 32, className = "" }: MarkProps) {
 export function StudioMark({ className = "" }: MarkProps) {
   return (
     <span className={`font-bold ${className}`}>
-      <span className="text-ez">A</span>nomaly{" "}
+      <span className="text-ez">A</span>nomalit{" "}
       <span className="text-ez">T</span>eam
     </span>
   );

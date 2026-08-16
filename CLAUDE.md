@@ -212,22 +212,20 @@ require('./$SHARP')('assets-src/eazyshot/hero-mock.png')
 "
 ```
 
-### El hero son tres capas
+### El hero: texto arriba, mock debajo
 
-`Hero.tsx` monta el mock del Mac a sangre completa (`<Image fill>`), encima el
-velo `.hero-veil` y encima el texto. `fill` es deliberado: así la imagen se
-recorta sola por los lados en móvil, donde un mock apaisado entero se vería
-diminuto, sin necesidad de una segunda maquetación.
+En agosto de 2026 se probó a poner el mock de fondo a sangre completa con el
+texto encima y un velo para dar contraste. **Se descartó**: para que el texto
+fuese legible había que cubrir la imagen tanto que el mock dejaba de verse, y
+bajando el velo el contraste quedaba a merced de lo que hubiera en la foto. Si
+vuelve a plantearse, ese es el motivo por el que no está así.
 
-`.hero-veil` (en `globals.css`) es lo que hace legible el texto sobre la imagen y
-**se adapta al tema sin una sola regla `dark:`**: mezcla con `color-mix` contra
-`--color-bg-primary`, así que tira a blanco en claro y a negro en oscuro. La
-elipse central opaca es la que garantiza el contraste bajo el texto — si la
-suavizas, el contraste pasa a depender de lo que haya en la foto. El degradado
-vertical termina en el color de fondo opaco para fundir con *Funciones*.
-
-La imagen lleva `priority`: es el elemento LCP de la landing y Next le añade su
-`<link rel="preload">`.
+La composición actual separa las dos cosas: bloque de texto centrado y, debajo,
+el mock. Va **sin marco, sombra ni `rounded`** porque la imagen ya trae el
+portátil recortado sobre fondo transparente, y cualquier borde rectangular
+delataría el recorte. Lleva `priority` —es el elemento LCP y Next le añade su
+`<link rel="preload">`— y `width`/`height` reales (2000×1300) para que no haya
+salto de maquetación.
 
 ### Imágenes de marca: dos orígenes distintos
 
@@ -249,7 +247,13 @@ Tres cosas que costaron un rato averiguar y conviene no repetir:
 - **`favicon.ico` tiene que existir**, aunque haya `icon.png` y su `<link>`. Los
   navegadores piden `/favicon.ico` por su cuenta; cuando se borró el de la
   plantilla, esa petición pasó a devolver 404 y la pestaña mostraba el icono
-  genérico.
+  genérico. El actual lleva **seis resoluciones** (16→256) para que el navegador
+  coja la que necesita en lugar de reescalar una de 256 hasta emborronarla, y
+  todas van cuadradas (el arte original es 542×444 y se deformaba). Se
+  reconstruye desde `assets-src/brand/icon-original.png`; **los PNG que van
+  dentro del `.ico` deben ser RGBA** o Turbopack falla el build con
+  *"The PNG is not in RGBA format"* — con `sharp`, `.flatten()` los deja en RGB y
+  hay que encadenar `.ensureAlpha()`.
 - **La Open Graph no debe pasar de ~300 KB.** WhatsApp descarta las más pesadas y
   la tarjeta sale sin imagen; el PNG original del autor pesaba 978 KB y en JPEG
   de calidad 88 son 60 KB sin diferencia visible. El original está en

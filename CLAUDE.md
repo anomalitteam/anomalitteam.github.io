@@ -110,20 +110,19 @@ por PR: lo que entra en `main` es lo que está publicado.
 ```
 src/
 ├── app/
-│   ├── layout.tsx        solo providers (tema + idioma) y metadata base
-│   ├── (studio)/         route group: layout con la navegación del estudio
-│   │   ├── layout.tsx
-│   │   └── page.tsx      → "/"  escaparate
-│   ├── eazyshot/
-│   │   ├── layout.tsx    navegación del producto + CTA de descarga
-│   │   ├── page.tsx      landing
-│   │   ├── privacy/      page.tsx (server, metadata) + PrivacyContent.tsx (cliente)
-│   │   └── support/      idem
-│   ├── privacy/          puente
-│   ├── support/          puente
-│   └── globals.css
+│   ├── globals.css · favicon.ico · icon.png · opengraph-image.jpg
+│   ├── sitemap.ts · robots.ts
+│   ├── (es)/                    root layout con <html lang="es">
+│   │   ├── (studio)/            → "/"          escaparate
+│   │   ├── eazyshot/            → "/eazyshot"  landing, privacy, support
+│   │   ├── privacy/ support/    puentes a /eazyshot/*
+│   └── (en)/                    root layout con <html lang="en">
+│       └── en/
+│           ├── (studio)/        → "/en"
+│           └── eazyshot/        → "/en/eazyshot" + privacy, support
 ├── components/
-│   ├── layout/     Navbar, Footer, RedirectBridge
+│   ├── layout/     Navbar, Footer, StudioChrome, ProductChrome, RedirectBridge
+│   ├── pages/      StudioHome, EazyShotLanding, PrivacyContent, SupportContent
 │   ├── sections/   StudioHero, ProjectGrid · Hero, Features, HowItWorks,
 │   │               Comparison, Pricing, Faq
 │   └── ui/         Button, DownloadButton, ProjectCard, BrandMark, Badge,
@@ -132,7 +131,7 @@ src/
 └── lib/
     ├── constants.ts      SITE — el estudio (nombre, url, trialDays)
     ├── products.ts       PRODUCTS / PRODUCT_LIST — un registro por producto
-    └── i18n/             context.tsx · translations.ts · types.ts
+    └── i18n/             context.tsx · routes.ts · translations.ts · types.ts
 ```
 
 ### Navbar y Footer no deciden sus enlaces
@@ -279,13 +278,39 @@ necesita además `export const dynamic = "force-static"`, o `output: "export"`
 falla al recolectarla. `sitemap.ts` se arma desde `PRODUCT_LIST`, así que un
 producto nuevo entra solo; los puentes quedan fuera por ser `noindex`.
 
-### i18n propio, no `next-intl` ni rutas por idioma
+### i18n con rutas reales: español en la raíz, inglés bajo `/en`
 
-`LanguageProvider` (`lib/i18n/context.tsx`) monta siempre en `"es"`, y en un
-`useEffect` lee `localStorage["eazyshot-language"]` o, en su defecto,
-`navigator.language`. Consecuencia importante: **el HTML exportado está solo en
-español**; el inglés aparece tras la hidratación, en el cliente. Ver "Estado
-conocido".
+```
+/                 /en                    escaparate
+/eazyshot         /en/eazyshot           landing
+/eazyshot/privacy /en/eazyshot/privacy   legales
+```
+
+El español no lleva prefijo **porque sus URLs ya existían** y las de privacidad y
+soporte están registradas en App Store Connect; prefijarlas las habría roto.
+
+Tres piezas lo sostienen:
+
+- **Dos root layouts**, `app/(es)/layout.tsx` y `app/(en)/layout.tsx`, y por eso
+  **no existe `app/layout.tsx`**. Es la única forma de que `<html lang>` diga la
+  verdad en cada rama: un layout raíz único solo puede emitir un idioma. El
+  precio es que cambiar de idioma recarga la página entera, que es lo esperable.
+- **`lib/i18n/routes.ts`** construye todas las rutas (`localePath`,
+  `alternatePath`, `localeAlternates`). Ningún componente concatena `/en` a mano.
+- **`LanguageProvider` recibe el idioma por props**, ya resuelto por la ruta. No
+  detecta nada: antes lo hacía en un `useEffect` con `localStorage` y
+  `navigator.language`, y eso dejaba el HTML exportado siempre en español —la
+  mitad traducida del contenido no la indexaba nadie— además de provocar un
+  parpadeo al hidratar en los navegadores en inglés.
+
+Las páginas de los dos idiomas comparten componente (`components/pages/`) y
+cromo (`StudioChrome`, `ProductChrome`); lo único que cambia en cada `page.tsx`
+es la metadata. **Al añadir una página hay que crearla en las dos ramas**, o
+existirá solo en un idioma.
+
+No hay redirección automática por idioma del navegador: con export estático
+implicaría un salto en cliente, y Google prefiere que el cambio sea explícito.
+Quien entre a `/` ve español y tiene el conmutador en la barra.
 
 ### Tema y tokens de color
 
@@ -336,11 +361,12 @@ con el autor antes de reescribir el copy.
   del App Store. La web anunció macOS 14 (Sonoma) durante un tiempo; corregido
   en `translations.ts:196` y `:511`. Si vuelve a aparecer un "14" ahí, es que
   alguien lo copió del spec viejo.
-- **"blur" no difumina.** La web lo menciona seis veces ("herramienta de blur",
-  "blur para censurar"). En la app, `drawBlur` rellena un rectángulo negro
-  opaco, y es una decisión deliberada y confirmada del autor: el bloque opaco es
-  lo único irreversible al tapar una contraseña. El copy honesto es
-  "censura"/"ocultar información sensible", no "blur".
+- **La palabra "blur" está desterrada del copy, y con motivo.** En la app,
+  `drawBlur` rellena un rectángulo negro opaco —decisión deliberada y confirmada
+  del autor: el bloque opaco es lo único irreversible al tapar una contraseña—,
+  así que prometer un desenfoque era describir algo que no ocurre. Se dice
+  "censura" / "bloque opaco" en español y *redaction* en inglés. Si alguien
+  reintroduce "blur", está describiendo la herramienta de otra app.
 - **La política de privacidad es vaga sobre la compra**: dice que se procesa
   "a través de la plataforma que elijas para adquirir la licencia"
   (`translations.ts`, sección *Compras y licencias*). Hay una sola plataforma y
@@ -353,17 +379,12 @@ Observaciones, no tareas asignadas. Confirmar antes de actuar.
 - El estado "Próximamente" de `DownloadButton` ya no se usa (la app está
   publicada), pero se mantiene: es lo que necesitará el siguiente producto del
   escaparate antes de salir.
-- **`layout.tsx:41` fija `lang="es"`** aunque el usuario cambie a inglés, y el
-  HTML estático solo contiene español (verificable en `out/index.html`): la
-  versión EN no es indexable y los lectores de pantalla anuncian el idioma
-  equivocado. Con `output: export` la solución es una ruta `/en` real, no el
-  toggle de cliente.
-- **Metadata:** completa para lo esencial — `metadataBase`, canonical por ruta,
-  Open Graph con imagen, `twitter:card` grande, `sitemap.xml` y `robots.txt`.
-  Lo que falta es una OG en inglés, que depende de las rutas por idioma.
-- **Parpadeo de idioma** para usuarios con navegador en inglés: el contenido se
-  pinta en español y cambia al hidratar. El tema ya resuelve este mismo problema
-  con un placeholder; el idioma no.
+- **Metadata:** completa — `metadataBase`, canonical y `hreflang` por ruta,
+  Open Graph con imagen, `twitter:card` grande, `sitemap.xml` con las
+  traducciones declaradas y `robots.txt`.
+- La **Open Graph es la misma en los dos idiomas** (la del arte del autor, y la
+  generada de EazyShot en español). Es el siguiente detalle de i18n si importa la
+  tarjeta al compartir desde `/en`.
 - **Los precios de ES y EN no son equivalentes**: `$69 MXN` frente a `$2.99 USD`
   (≈ $50 MXN), y la referencia de la competencia igual (`~$499 MXN` vs `~$29
   USD`). Puede ser precio regional deliberado del App Store; sin confirmar.

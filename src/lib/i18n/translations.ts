@@ -81,7 +81,7 @@ const es: Translations = {
         icon: "Monitor",
         title: "Pantalla Completa",
         description:
-          "Captura toda tu pantalla con un editor flotante que incluye herramientas de rectángulo, flecha, texto, blur y numeración automática.",
+          "Captura toda tu pantalla con un editor flotante que incluye herramientas de rectángulo, flecha, texto, censura y numeración automática.",
         ez: false,
       },
       {
@@ -102,7 +102,7 @@ const es: Translations = {
         icon: "Pencil",
         title: "Editor de Anotaciones",
         description:
-          "Rectángulos, flechas, líneas, texto, blur para censurar y numeración automática paso a paso. Todo con color y tamaño personalizables.",
+          "Rectángulos, flechas, líneas, texto, censura con bloque opaco y numeración automática paso a paso. Todo con color y tamaño personalizables.",
         ez: false,
       },
     ],
@@ -131,7 +131,7 @@ const es: Translations = {
         step: 3,
         title: "Anota si lo necesitas",
         description:
-          "Añade rectángulos, flechas, texto, blur para ocultar información sensible, o numeración para guías paso a paso.",
+          "Añade rectángulos, flechas, texto, un bloque de censura que tapa de verdad lo sensible, o numeración para guías paso a paso.",
         image: "/images/eazyshot/funcion-3.jpg",
       },
       {
@@ -158,7 +158,7 @@ const es: Translations = {
       { feature: "Captura de región", native: true, eazyshot: true, competition: true },
       { feature: "Captura de pantalla completa", native: true, eazyshot: true, competition: true },
       { feature: "Editor inline de anotaciones", native: false, eazyshot: true, competition: true },
-      { feature: "Herramienta de blur / censura", native: false, eazyshot: true, competition: true },
+      { feature: "Herramienta de censura", native: false, eazyshot: true, competition: true },
       { feature: "Numeración automática", native: false, eazyshot: true, competition: true },
       {
         feature: "Modo rápido al portapapeles",
@@ -211,7 +211,7 @@ const es: Translations = {
         question:
           "¿En qué se diferencia EazyShot de la captura nativa de macOS?",
         answer:
-          "EazyShot añade un editor de anotaciones inline directamente sobre tu captura, herramientas de blur para censurar, numeración automática para guías, modos 'EZ' ultrarrápidos que copian directo al portapapeles, y atajos de teclado 100% configurables. No necesitas abrir otra app para anotar tus capturas.",
+          "EazyShot añade un editor de anotaciones inline directamente sobre tu captura, censura con bloque opaco que no se puede deshacer, numeración automática para guías, modos 'EZ' ultrarrápidos que copian directo al portapapeles, y atajos de teclado 100% configurables. No necesitas abrir otra app para anotar tus capturas.",
       },
       {
         question: "¿Cuánto cuesta EazyShot?",
@@ -429,7 +429,7 @@ const en: Translations = {
         icon: "Monitor",
         title: "Full Screen",
         description:
-          "Capture your full screen with a floating editor that includes rectangle, arrow, text, blur, and auto-numbering tools.",
+          "Capture your full screen with a floating editor that includes rectangle, arrow, text, redaction, and auto-numbering tools.",
         ez: false,
       },
       {
@@ -450,7 +450,7 @@ const en: Translations = {
         icon: "Pencil",
         title: "Annotation Editor",
         description:
-          "Rectangles, arrows, lines, text, blur for censoring, and step-by-step auto-numbering. All with customizable color and size.",
+          "Rectangles, arrows, lines, text, opaque redaction, and step-by-step auto-numbering. All with customizable color and size.",
         ez: false,
       },
     ],
@@ -479,7 +479,7 @@ const en: Translations = {
         step: 3,
         title: "Annotate if needed",
         description:
-          "Add rectangles, arrows, text, blur to hide sensitive info, or numbering for step-by-step guides.",
+          "Add rectangles, arrows, text, a redaction block that truly covers sensitive info, or numbering for step-by-step guides.",
         image: "/images/eazyshot/funcion-3.jpg",
       },
       {
@@ -505,7 +505,7 @@ const en: Translations = {
       { feature: "Region capture", native: true, eazyshot: true, competition: true },
       { feature: "Full screen capture", native: true, eazyshot: true, competition: true },
       { feature: "Inline annotation editor", native: false, eazyshot: true, competition: true },
-      { feature: "Blur / censor tool", native: false, eazyshot: true, competition: true },
+      { feature: "Redaction tool", native: false, eazyshot: true, competition: true },
       { feature: "Auto-numbering", native: false, eazyshot: true, competition: true },
       {
         feature: "Quick clipboard mode",
@@ -558,7 +558,7 @@ const en: Translations = {
         question:
           "How is EazyShot different from the macOS native screenshot?",
         answer:
-          "EazyShot adds an inline annotation editor directly on top of your capture, blur tools for censoring, auto-numbering for guides, ultra-fast 'EZ' modes that copy directly to clipboard, and 100% customizable keyboard shortcuts. You don't need to open another app to annotate your screenshots.",
+          "EazyShot adds an inline annotation editor directly on top of your capture, opaque redaction that cannot be undone, auto-numbering for guides, ultra-fast 'EZ' modes that copy directly to clipboard, and 100% customizable keyboard shortcuts. You don't need to open another app to annotate your screenshots.",
       },
       {
         question: "How much does EazyShot cost?",

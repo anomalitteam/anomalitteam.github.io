@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { SupportContent } from "@/components/pages/SupportContent";
 import { translations } from "@/lib/i18n/translations";
-import { SupportContent } from "./SupportContent";
+import { localeAlternates } from "@/lib/i18n/routes";
 
 export const metadata: Metadata = {
   title: `${translations.es.support.title} — EazyShot`,
-  alternates: { canonical: "/eazyshot/support" },
+  alternates: localeAlternates("es", "/eazyshot/support"),
 };
 
 export default function SupportPage() {

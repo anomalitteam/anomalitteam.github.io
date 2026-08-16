@@ -1,64 +1,34 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { createContext, useContext } from "react";
 import type { Language, Translations } from "./types";
 import { translations } from "./translations";
 
-const STORAGE_KEY = "eazyshot-language";
-
-function detectLanguage(): Language {
-  if (typeof window === "undefined") return "es";
-  const stored = localStorage.getItem(STORAGE_KEY) as Language | null;
-  if (stored === "es" || stored === "en") return stored;
-  const browser = navigator.language.toLowerCase();
-  return browser.startsWith("en") ? "en" : "es";
-}
-
 type LanguageContextValue = {
   language: Language;
-  setLanguage: (lang: Language) => void;
   t: Translations;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("es");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLanguageState(detectLanguage());
-    setMounted(true);
-  }, []);
-
-  const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem(STORAGE_KEY, lang);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <LanguageContext.Provider
-        value={{
-          language: "es",
-          setLanguage: () => {},
-          t: translations.es,
-        }}
-      >
-        {children}
-      </LanguageContext.Provider>
-    );
-  }
-
+/**
+ * El idioma lo fija la ruta, no el cliente.
+ *
+ * Antes se detectaba en un `useEffect` con `localStorage` y `navigator.language`,
+ * y eso tenía dos costes: el HTML exportado salía siempre en español —así que la
+ * mitad traducida del contenido no la indexaba nadie— y los visitantes con
+ * navegador en inglés veían un parpadeo al hidratar. Ahora cada árbol de rutas
+ * monta el proveedor con su idioma ya resuelto, y el conmutador navega.
+ */
+export function LanguageProvider({
+  language,
+  children,
+}: {
+  language: Language;
+  children: React.ReactNode;
+}) {
   return (
-    <LanguageContext.Provider
-      value={{
-        language,
-        setLanguage,
-        t: translations[language],
-      }}
-    >
+    <LanguageContext.Provider value={{ language, t: translations[language] }}>
       {children}
     </LanguageContext.Provider>
   );

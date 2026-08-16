@@ -3,36 +3,38 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
+import { localeAlternates } from "@/lib/i18n/routes";
 import { SITE } from "@/lib/constants";
-import "./globals.css";
+import "../globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-// El layout raíz solo monta los providers: la barra de navegación y el pie los
-// pone cada sección del sitio, porque sus enlaces no son los mismos en el
-// escaparate que en la landing de un producto.
+// El gemelo inglés de `(es)/layout.tsx`. Ver la nota de allí sobre por qué hay
+// dos root layouts en vez de uno.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: translations.es.studio.meta.title,
-  description: translations.es.studio.meta.description,
+  title: translations.en.studio.meta.title,
+  description: translations.en.studio.meta.description,
+  alternates: localeAlternates("en"),
   openGraph: {
-    title: translations.es.studio.meta.title,
-    description: translations.es.studio.meta.description,
+    title: translations.en.studio.meta.title,
+    description: translations.en.studio.meta.description,
     type: "website",
+    locale: "en_US",
   },
 };
 
-export default function RootLayout({
+export default function EnglishLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html
-      lang="es"
+      lang="en"
       suppressHydrationWarning
       className={`${inter.variable} scroll-smooth`}
     >
@@ -43,7 +45,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider language="en">{children}</LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

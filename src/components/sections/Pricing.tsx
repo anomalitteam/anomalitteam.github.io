@@ -1,10 +1,11 @@
 "use client";
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
+import { DownloadButton } from "@/components/ui/DownloadButton";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useT } from "@/lib/i18n/context";
 import { SITE } from "@/lib/constants";
+import { PRODUCTS } from "@/lib/products";
 import { Check } from "lucide-react";
 
 export function Pricing() {
@@ -40,9 +41,13 @@ export function Pricing() {
               </p>
 
               <div className="mt-8">
-                <Button size="lg" className="w-full">
+                <DownloadButton
+                  product={PRODUCTS.eazyshot}
+                  size="lg"
+                  className="w-full"
+                >
                   {section.cta}
-                </Button>
+                </DownloadButton>
               </div>
 
               <p className="mt-3 text-xs text-text-secondary">

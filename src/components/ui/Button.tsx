@@ -4,6 +4,7 @@ type ButtonProps = {
   href?: string;
   variant?: "primary" | "secondary" | "ghost";
   size?: "sm" | "md" | "lg";
+  disabled?: boolean;
   children: React.ReactNode;
   className?: string;
 };
@@ -27,12 +28,27 @@ export function Button({
   href,
   variant = "primary",
   size = "md",
+  disabled = false,
   children,
   className = "",
 }: ButtonProps) {
   const classes = `${variants[variant]} ${sizes[size]} inline-flex items-center justify-center font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${className}`;
 
-  if (href) {
+  if (href && !disabled) {
+    // Los enlaces externos salen como <a> con target/rel; Link es para rutas internas.
+    if (/^(https?:)?\/\//.test(href) || href.startsWith("mailto:")) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes}
+        >
+          {children}
+        </a>
+      );
+    }
+
     return (
       <Link href={href} className={classes}>
         {children}
@@ -41,7 +57,11 @@ export function Button({
   }
 
   return (
-    <button type="button" className={classes}>
+    <button
+      type="button"
+      disabled={disabled}
+      className={`${classes} ${disabled ? "cursor-not-allowed opacity-60" : ""}`}
+    >
       {children}
     </button>
   );

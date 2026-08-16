@@ -1,3 +1,5 @@
+import type { ProductId } from "@/lib/products";
+
 export type Language = "es" | "en";
 
 export interface NavLinks {
@@ -100,9 +102,35 @@ export interface SupportTranslations {
   responseTime: string;
 }
 
+export interface CtaTranslations {
+  /** Etiqueta del CTA mientras el producto no tenga `appStoreUrl`. */
+  comingSoon: string;
+}
+
+/** Textos del escaparate: la home del estudio y las tarjetas de producto. */
+export interface StudioTranslations {
+  meta: Meta;
+  hero: {
+    tagline: string;
+    description: string;
+  };
+  projects: Section;
+  /** Badge de la tarjeta de un producto aún sin publicar. */
+  comingSoon: string;
+  /** CTA de la tarjeta. */
+  viewProject: string;
+  products: Record<ProductId, { tagline: string; description: string }>;
+  nav: {
+    projects: string;
+    support: string;
+  };
+}
+
 export interface Translations {
   meta: Meta;
   nav: NavLinks;
+  cta: CtaTranslations;
+  studio: StudioTranslations;
   hero: HeroTranslations;
   features: Section & { items: FeatureItem[] };
   howItWorks: Section & { items: StepItem[] };

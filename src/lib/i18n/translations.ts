@@ -14,6 +14,40 @@ const es: Translations = {
     faq: "FAQ",
     download: "Descargar gratis",
   },
+  cta: {
+    comingSoon: "Próximamente",
+  },
+  studio: {
+    meta: {
+      title: "Fairy Dream Studio — Apps para Mac",
+      description:
+        "Estudio independiente de aplicaciones para el ecosistema de Apple. Herramientas cuidadas, sin suscripciones y con pago único.",
+    },
+    hero: {
+      tagline: "Apps que hacen bien una cosa",
+      description:
+        "Somos un estudio independiente que crea herramientas para el ecosistema de Apple. Cuidadas hasta el detalle, sin suscripciones y con pago único.",
+    },
+    projects: {
+      label: "Proyectos",
+      title: "Lo que hemos construido",
+      description:
+        "Cada app nace de una necesidad propia y se pule hasta que la usamos a diario.",
+    },
+    comingSoon: "Próximamente",
+    viewProject: "Ver proyecto",
+    products: {
+      eazyshot: {
+        tagline: "Capturas de pantalla profesionales",
+        description:
+          "Captura, anota, censura y numera desde la barra de menús. Cinco modos y un editor completo sin salir de la captura.",
+      },
+    },
+    nav: {
+      projects: "Proyectos",
+      support: "Soporte",
+    },
+  },
   hero: {
     tagline: "Capturas de pantalla profesionales en segundos",
     description:
@@ -82,28 +116,28 @@ const es: Translations = {
         title: "Activa desde la barra de menú",
         description:
           "Haz clic en el icono de EazyShot en tu barra de menú o usa un atajo de teclado personalizado. La app está siempre a un clic de distancia.",
-        image: "/images/funcion-1.png",
+        image: "/images/eazyshot/funcion-1.png",
       },
       {
         step: 2,
         title: "Selecciona o captura",
         description:
           "Arrastra para seleccionar una región o captura la pantalla completa. El overlay cubre todos tus monitores.",
-        image: "/images/funcion-2.png",
+        image: "/images/eazyshot/funcion-2.png",
       },
       {
         step: 3,
         title: "Anota si lo necesitas",
         description:
           "Añade rectángulos, flechas, texto, blur para ocultar información sensible, o numeración para guías paso a paso.",
-        image: "/images/funcion-3.png",
+        image: "/images/eazyshot/funcion-3.png",
       },
       {
         step: 4,
         title: "Copia o guarda",
         description:
           "Copia al portapapeles con Cmd+C o guarda como PNG en tu carpeta preferida. En modo EZ, va directo al portapapeles.",
-        image: "/images/funcion-4.png",
+        image: "/images/eazyshot/funcion-4.png",
       },
     ],
   },
@@ -190,7 +224,7 @@ const es: Translations = {
       {
         question: "¿Qué versiones de macOS soporta?",
         answer:
-          "EazyShot funciona en macOS 14 (Sonoma) y versiones posteriores, incluyendo la última versión de macOS. Requiere Apple Silicon o Intel Mac.",
+          "EazyShot requiere macOS 15.2 (Sequoia) o posterior, incluyendo la última versión de macOS. Funciona en Mac con Apple Silicon o Intel.",
       },
       {
         question: "¿Las actualizaciones son gratuitas?",
@@ -327,6 +361,40 @@ const en: Translations = {
     faq: "FAQ",
     download: "Download Free",
   },
+  cta: {
+    comingSoon: "Coming soon",
+  },
+  studio: {
+    meta: {
+      title: "Fairy Dream Studio — Mac Apps",
+      description:
+        "Independent studio building apps for the Apple ecosystem. Carefully crafted tools, no subscriptions, one-time payment.",
+    },
+    hero: {
+      tagline: "Apps that do one thing well",
+      description:
+        "We're an independent studio building tools for the Apple ecosystem. Crafted down to the detail, no subscriptions, one-time payment.",
+    },
+    projects: {
+      label: "Projects",
+      title: "What we've built",
+      description:
+        "Every app starts from a need of our own and gets polished until we use it daily.",
+    },
+    comingSoon: "Coming soon",
+    viewProject: "View project",
+    products: {
+      eazyshot: {
+        tagline: "Professional screenshots",
+        description:
+          "Capture, annotate, censor, and number right from the menu bar. Five modes and a full editor without leaving the capture.",
+      },
+    },
+    nav: {
+      projects: "Projects",
+      support: "Support",
+    },
+  },
   hero: {
     tagline: "Professional Screenshots in Seconds",
     description:
@@ -395,28 +463,28 @@ const en: Translations = {
         title: "Activate from the menu bar",
         description:
           "Click the EazyShot icon in your menu bar or use a custom keyboard shortcut. The app is always one click away.",
-        image: "/images/funcion-1.png",
+        image: "/images/eazyshot/funcion-1.png",
       },
       {
         step: 2,
         title: "Select or capture",
         description:
           "Drag to select a region or capture the full screen. The overlay covers all your monitors.",
-        image: "/images/funcion-2.png",
+        image: "/images/eazyshot/funcion-2.png",
       },
       {
         step: 3,
         title: "Annotate if needed",
         description:
           "Add rectangles, arrows, text, blur to hide sensitive info, or numbering for step-by-step guides.",
-        image: "/images/funcion-3.png",
+        image: "/images/eazyshot/funcion-3.png",
       },
       {
         step: 4,
         title: "Copy or save",
         description:
           "Copy to clipboard with Cmd+C or save as PNG in your preferred folder. In EZ mode, it goes directly to clipboard.",
-        image: "/images/funcion-4.png",
+        image: "/images/eazyshot/funcion-4.png",
       },
     ],
   },
@@ -502,7 +570,7 @@ const en: Translations = {
       {
         question: "Which macOS versions are supported?",
         answer:
-          "EazyShot works on macOS 14 (Sonoma) and later, including the latest macOS version. Requires Apple Silicon or Intel Mac.",
+          "EazyShot requires macOS 15.2 (Sequoia) or later, including the latest macOS version. Works on Apple Silicon and Intel Macs.",
       },
       {
         question: "Are updates free?",

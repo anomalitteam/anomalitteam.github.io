@@ -1,0 +1,263 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Proyecto
+
+EzWeb es el sitio público de **Fairy Dream Studio**: un escaparate de los
+proyectos del estudio. Hoy contiene un único producto, **EazyShot**, la app de
+capturas de pantalla para macOS.
+
+- Repo de despliegue: `fairydreamstudio/fairydreamstudio.github.io` (**user
+  page**, se sirve en la raíz del dominio — por eso `next.config.ts` no necesita
+  `basePath` ni `assetPrefix`)
+- Sitio estático puro (`output: "export"`): sin API, sin base de datos, sin
+  lógica de servidor
+- Bilingüe ES/EN con un contexto de React propio, y tema claro/oscuro
+
+```
+/                      escaparate del estudio (hero + rejilla de proyectos)
+/eazyshot              landing del producto, con navegación por anclas
+/eazyshot/privacy      política de privacidad
+/eazyshot/support      soporte
+/privacy               puente → /eazyshot/privacy
+/support               puente → /eazyshot/support
+```
+
+### Cómo se añade un producto
+
+1. Una entrada en `PRODUCTS` (`lib/products.ts`) con su slug, icono, plataforma
+   y `appStoreUrl` (vacía si aún no ha salido), y añadirla a `PRODUCT_LIST`
+2. Sus textos de escaparate en `studio.products[id]`, en las dos ramas de
+   `translations.ts` — el `Record<ProductId, …>` del tipo obliga a ello
+3. Una carpeta `src/app/<slug>/` con su `layout.tsx` (navegación propia) y su
+   `page.tsx`
+
+Con eso aparece solo en la rejilla de la home y en la navegación del estudio.
+**Lo que aún no está resuelto** es la landing en sí: las secciones de
+`components/sections/` (`Hero`, `Features`, `Comparison`, `Pricing`, `Faq`)
+leen `t.hero`, `t.features`… y están escritas para EazyShot. Parametrizarlas por
+producto se dejó deliberadamente para cuando exista el segundo y se sepa qué
+varía de verdad; hasta entonces, un producto nuevo necesita sus propias
+secciones o una generalización acordada con el autor.
+
+### Las páginas-puente no son decorativas
+
+`/privacy` y `/support` están registradas en App Store Connect como las URLs de
+EazyShot. Cuando el contenido se mudó a `/eazyshot/*`, esas rutas se quedaron
+como puentes (`components/layout/RedirectBridge.tsx`): un `meta refresh` más el
+`canonical` al destino y `noindex`. GitHub Pages sirve archivos estáticos y no
+admite redirecciones de servidor — esto es el equivalente. **No borrarlas**
+mientras la ficha del App Store apunte ahí.
+
+### El código fuente de la app vive en el repo hermano
+
+`../easyZshot` (target `EZShot`, módulo Swift `EazyShot`) tiene su propio
+`CLAUDE.md`. **Cualquier afirmación de la web sobre lo que hace la app debe
+contrastarse contra ese repo**, no contra el spec de diseño ni contra lo que ya
+hay escrito aquí. Ver "Desajustes con la app real" más abajo: los que hay hoy
+salieron justo de no hacerlo.
+
+Datos de la app relevantes para el contenido de la web:
+
+- macOS **15.2+**, sandboxed, bundle `TheWizardKing.EZShot`
+- Cinco modos: región, EZ región, pantalla completa, EZ pantalla completa y
+  color picker
+- Publicada en el **Mac App Store** (Apple ID `6795760394`) y **la descarga es
+  gratuita**: se prueba 3 días y la compra única se hace después, dentro de la
+  app, vía StoreKit 2. Por eso "Descargar prueba gratis" es el copy correcto —
+  no hay que pagar para instalarla
+- Bilingüe ES/EN también en la app, vía `L10n.loc("texto es", "text en")`
+
+## Comandos
+
+```bash
+pnpm dev        # servidor de desarrollo
+pnpm build      # export estático → out/
+pnpm lint       # eslint
+pnpm typecheck  # tsc --noEmit
+```
+
+`pnpm` es obligatorio: el workflow instala con `--frozen-lockfile` contra
+`pnpm-lock.yaml`, y `pnpm-workspace.yaml` declara los `allowBuilds` (`sharp`,
+`unrs-resolver`) que npm/yarn ignorarían.
+
+**Typecheck y lint están a cero errores y merece la pena mantenerlo así**: el
+workflow de despliegue no los ejecuta, así que un error de tipos no rompe el
+deploy — sale a producción.
+
+### Despliegue
+
+`.github/workflows/deploy.yml` corre en cada push a `main`: pnpm 10 + Node 22,
+`pnpm build`, y sube `out/` a GitHub Pages. No hay entorno de staging ni preview
+por PR: lo que entra en `main` es lo que está publicado.
+
+## Arquitectura
+
+```
+src/
+├── app/
+│   ├── layout.tsx        solo providers (tema + idioma) y metadata base
+│   ├── (studio)/         route group: layout con la navegación del estudio
+│   │   ├── layout.tsx
+│   │   └── page.tsx      → "/"  escaparate
+│   ├── eazyshot/
+│   │   ├── layout.tsx    navegación del producto + CTA de descarga
+│   │   ├── page.tsx      landing
+│   │   ├── privacy/      page.tsx (server, metadata) + PrivacyContent.tsx (cliente)
+│   │   └── support/      idem
+│   ├── privacy/          puente
+│   ├── support/          puente
+│   └── globals.css
+├── components/
+│   ├── layout/     Navbar, Footer, RedirectBridge
+│   ├── sections/   StudioHero, ProjectGrid · Hero, Features, HowItWorks,
+│   │               Comparison, Pricing, Faq
+│   └── ui/         Button, DownloadButton, ProjectCard, BrandMark, Badge,
+│                   Accordion, SectionHeading, ScrollReveal, ThemeToggle,
+│                   LanguageToggle
+└── lib/
+    ├── constants.ts      SITE — el estudio (nombre, url, trialDays)
+    ├── products.ts       PRODUCTS / PRODUCT_LIST — un registro por producto
+    └── i18n/             context.tsx · translations.ts · types.ts
+```
+
+### Navbar y Footer no deciden sus enlaces
+
+Ambos reciben `links` por props, y cada layout arma los suyos: el del estudio
+lista los productos del registro, el de EazyShot las anclas de su landing
+(`/eazyshot#features`, no `#features` — desde `/eazyshot/privacy` un ancla suelta
+no llevaría a ninguna parte). `Navbar` solo muestra el CTA de descarga si recibe
+un `product`.
+
+Las páginas legales son server components que exportan `metadata` y delegan el
+contenido en un `*Content.tsx` cliente. Es el único modo de tener título propio
+en una página que necesita `useT()`.
+
+### Todo el contenido vive en `lib/i18n/translations.ts`
+
+Es con diferencia el archivo más grande del proyecto. Los componentes no
+contienen texto: cada uno llama a `useT()` y lee su rama (`t.hero`, `t.pricing`,
+`t.studio`…). `types.ts` describe la forma completa, así que **añadir una cadena
+obliga a tocar tres sitios**: el tipo, la rama `es` y la rama `en`. Si falta una,
+`pnpm typecheck` lo caza.
+
+El reparto con `products.ts` es deliberado: allí van los datos estructurales
+(slug, icono, URL del App Store), aquí solo lo que se traduce.
+
+Un detalle que no es evidente: los iconos y las imágenes también salen de
+`translations.ts` como *strings* (`icon: "MousePointer2"`, `image:
+"/images/eazyshot/funcion-1.png"`), y `Features.tsx` los resuelve con un
+`iconMap`. Un icono mal escrito no falla en compilación — la tarjeta se queda
+sin icono.
+
+### Los CTA pasan todos por `DownloadButton`
+
+Los botones de conversión (dos en `Navbar`, uno en `Hero`, uno en `Pricing`)
+usan `ui/DownloadButton.tsx`, no `Button` directamente, y reciben el producto por
+props. El destino de cada uno vive en un solo sitio: `PRODUCTS[id].appStoreUrl`
+(`lib/products.ts`). Si esa URL está vacía, el botón se pinta deshabilitado con
+`t.cta.comingSoon`; en cuanto se le pega la ficha, todos enlazan sin tocar ningún
+componente. **No enlaces un CTA a mano desde una sección.**
+
+`Button` decide la etiqueta según el `href`: `//` o `mailto:` salen como `<a>`
+con `target="_blank"` y `rel="noopener noreferrer"`; el resto va por `<Link>`.
+Sin `href`, o con `disabled`, sale como `<button>`.
+
+### i18n propio, no `next-intl` ni rutas por idioma
+
+`LanguageProvider` (`lib/i18n/context.tsx`) monta siempre en `"es"`, y en un
+`useEffect` lee `localStorage["eazyshot-language"]` o, en su defecto,
+`navigator.language`. Consecuencia importante: **el HTML exportado está solo en
+español**; el inglés aparece tras la hidratación, en el cliente. Ver "Estado
+conocido".
+
+### Tema y tokens de color
+
+No hay `tailwind.config.ts` — es Tailwind 4 y toda la configuración vive en
+`globals.css`: los tokens en `@theme inline`, y una variante custom
+`@custom-variant dark (&:where(.dark, .dark *))` que se acopla al
+`attribute="class"` de `next-themes`. Los colores se usan siempre por token
+(`bg-bg-primary`, `text-text-secondary`, `text-accent`, `text-ez`), nunca como
+hex suelto. `--color-ez` (`#ff375f`) es el rosa de la marca: las letras E y Z del
+logo y el icono de los modos rápidos.
+
+`ThemeToggle` pinta un `<div>` vacío del mismo tamaño hasta que monta; sin eso
+`next-themes` provoca un desajuste de hidratación.
+
+### `output: "export"` condiciona tres cosas
+
+1. **`next/image` necesita `unoptimized`** en cada imagen (no hay optimizador en
+   Pages). Está repetido en cada `<Image>` en vez de en `next.config.ts`.
+2. Nada de Route Handlers, Server Actions, `revalidate` ni middleware.
+3. No hay redirecciones de servidor: mover una URL obliga a dejar un puente
+   estático (ver arriba).
+
+## Desajustes con la app real
+
+Detectados al contrastar el contenido con `../easyZshot/CLAUDE.md`. **Son
+afirmaciones incorrectas de la web, no cosas a "arreglar" en la app.** Confirmar
+con el autor antes de reescribir el copy.
+
+- **El requisito de sistema es macOS 15.2 (Sequoia)**, tal y como dice la ficha
+  del App Store. La web anunció macOS 14 (Sonoma) durante un tiempo; corregido
+  en `translations.ts:196` y `:511`. Si vuelve a aparecer un "14" ahí, es que
+  alguien lo copió del spec viejo.
+- **"blur" no difumina.** La web lo menciona seis veces ("herramienta de blur",
+  "blur para censurar"). En la app, `drawBlur` rellena un rectángulo negro
+  opaco, y es una decisión deliberada y confirmada del autor: el bloque opaco es
+  lo único irreversible al tapar una contraseña. El copy honesto es
+  "censura"/"ocultar información sensible", no "blur".
+- **La política de privacidad es vaga sobre la compra**: dice que se procesa
+  "a través de la plataforma que elijas para adquirir la licencia"
+  (`translations.ts`, sección *Compras y licencias*). Hay una sola plataforma y
+  es el App Store.
+
+## Estado conocido
+
+Observaciones, no tareas asignadas. Confirmar antes de actuar.
+
+- El estado "Próximamente" de `DownloadButton` ya no se usa (la app está
+  publicada), pero se mantiene: es lo que necesitará el siguiente producto del
+  escaparate antes de salir.
+- **`layout.tsx:41` fija `lang="es"`** aunque el usuario cambie a inglés, y el
+  HTML estático solo contiene español (verificable en `out/index.html`): la
+  versión EN no es indexable y los lectores de pantalla anuncian el idioma
+  equivocado. Con `output: export` la solución es una ruta `/en` real, no el
+  toggle de cliente.
+- **Metadata:** ya hay `metadataBase` y `canonical` por ruta. Siguen faltando
+  imagen OG, `twitter` card, `robots.txt` y `sitemap.xml`.
+- **Parpadeo de idioma** para usuarios con navegador en inglés: el contenido se
+  pinta en español y cambia al hidratar. El tema ya resuelve este mismo problema
+  con un placeholder; el idioma no.
+- **Los precios de ES y EN no son equivalentes**: `$69 MXN` frente a `$2.99 USD`
+  (≈ $50 MXN), y la referencia de la competencia igual (`~$499 MXN` vs `~$29
+  USD`). Puede ser precio regional deliberado del App Store; sin confirmar.
+- El Hero no tiene imagen. Las cuatro capturas de
+  `public/images/eazyshot/funcion-*.png` solo se usan en *Cómo funciona*.
+- Las imágenes se agrupan por producto (`public/images/<id>/`) para que la
+  segunda app no colisione con la primera.
+- Las variantes `secondary` y `ghost` de `Button` están definidas y no se usan
+  en ningún sitio.
+- **El panel del `Accordion` no se desmonta al cerrarse, y es a propósito.**
+  Con `AnimatePresence` el `<p>` solo existía mientras estaba abierto, así que
+  el HTML exportado tenía ocho preguntas y ninguna respuesta —todo el contenido
+  del FAQ quedaba fuera del alcance de un buscador—. Ahora se queda montado,
+  colapsado a `height: 0` desde el servidor (se ve en el `style` inline de
+  `out/eazyshot.html`, así que tampoco hay flash antes de hidratar) y con
+  `aria-hidden` para que los lectores de pantalla no anuncien lo colapsado.
+  No volver a envolverlo en `AnimatePresence`.
+- No hay tests de ningún tipo.
+- `docs/specs/2026-07-14-ezweb-landing-design.md` es el spec original y está
+  **desfasado**: llama al producto "EZShot", asume despliegue en Vercel,
+  contenido en `lib/content.ts`, precio $9.99 USD, y lista i18n como *non-goal*
+  cuando hoy es una pieza central. Sirve como registro de intención, no como
+  descripción del código.
+
+## Herramientas
+
+`.claude/skills/` tiene dos skills instaladas localmente y aplicables a este
+proyecto: `frontend-design` (dirección visual) y `vercel-react-best-practices`
+(rendimiento en React/Next). **`.claude/` está en `.gitignore`** —igual que en
+`../easyZshot`—, así que no viajan con el repo: si clonas en otra máquina hay
+que reinstalarlas desde `anthropics/skills` y `vercel-labs/agent-skills`.

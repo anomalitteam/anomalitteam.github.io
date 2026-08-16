@@ -3,3 +3,10 @@ node_modules/
 out/
 .DS_Store
 *.tsbuildinfo
+
+# Agentes de IA (config y artefactos locales)
+# CLAUDE.md NO se ignora: es documentación del proyecto y debe viajar con el repo
+.claude/
+.opencode/
+.superpowers/
+.agents/

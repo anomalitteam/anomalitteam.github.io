@@ -2,14 +2,28 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
-import { Button } from "@/components/ui/Button";
+import { DownloadButton } from "@/components/ui/DownloadButton";
 import { useT } from "@/lib/i18n/context";
+import type { Product } from "@/lib/products";
 
-export function Navbar() {
+export type NavLink = {
+  label: string;
+  href: string;
+};
+
+type NavbarProps = {
+  /** Destino del logo: "/" en el escaparate, la landing en una página de producto. */
+  homeHref: string;
+  brand: React.ReactNode;
+  links: NavLink[];
+  /** Si se pasa, la barra muestra el CTA de descarga de ese producto. */
+  product?: Product;
+};
+
+export function Navbar({ homeHref, brand, links, product }: NavbarProps) {
   const { t } = useT();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -20,14 +34,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  const links = [
-    { label: t.nav.features, href: "/#features" },
-    { label: t.nav.howItWorks, href: "/#how-it-works" },
-    { label: t.nav.comparison, href: "/#comparison" },
-    { label: t.nav.pricing, href: "/#pricing" },
-    { label: t.nav.faq, href: "/#faq" },
-  ];
-
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
@@ -37,18 +43,11 @@ export function Navbar() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 font-bold text-lg text-text-primary">
-          <Image
-            src="/images/app-icon.png"
-            alt="EazyShot"
-            width={32}
-            height={32}
-            unoptimized
-            className="rounded-lg"
-          />
-          <span>
-            <span className="text-ez">E</span>a<span className="text-ez">z</span>yShot
-          </span>
+        <Link
+          href={homeHref}
+          className="flex items-center gap-2 text-lg text-text-primary"
+        >
+          {brand}
         </Link>
 
         <div className="hidden md:flex md:items-center md:gap-1">
@@ -66,7 +65,11 @@ export function Navbar() {
         <div className="hidden md:flex md:items-center md:gap-2">
           <LanguageToggle />
           <ThemeToggle />
-          <Button size="sm">{t.nav.download}</Button>
+          {product && (
+            <DownloadButton product={product} size="sm">
+              {t.nav.download}
+            </DownloadButton>
+          )}
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -77,6 +80,7 @@ export function Navbar() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors cursor-pointer"
             aria-label="Menu"
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -95,9 +99,13 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <div className="mt-3">
-            <Button size="sm" className="w-full">{t.nav.download}</Button>
-          </div>
+          {product && (
+            <div className="mt-3">
+              <DownloadButton product={product} size="sm" className="w-full">
+                {t.nav.download}
+              </DownloadButton>
+            </div>
+          )}
         </div>
       )}
     </header>

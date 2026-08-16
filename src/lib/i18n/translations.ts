@@ -328,13 +328,13 @@ const es: Translations = {
       },
     ],
     contact: "Para cualquier consulta sobre privacidad, escríbenos a:",
-    contactEmail: "anomalyteam@gmail.com",
+    contactEmail: "anomalitteam@gmail.com",
   },
   support: {
     title: "Soporte",
     intro: "¿Tienes problemas con EazyShot? Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.",
     emailLabel: "Correo de soporte",
-    email: "anomalyteam@gmail.com",
+    email: "anomalitteam@gmail.com",
     infoTitle: "Para ayudarte más rápido, incluye esta información:",
     infoItems: [
       "Versión de macOS que estás usando",
@@ -673,13 +673,13 @@ const en: Translations = {
       },
     ],
     contact: "For any privacy inquiries, reach out to us at:",
-    contactEmail: "anomalyteam@gmail.com",
+    contactEmail: "anomalitteam@gmail.com",
   },
   support: {
     title: "Support",
     intro: "Having issues with EazyShot? We're here to help. Reach out and we'll get back to you as soon as possible.",
     emailLabel: "Support email",
-    email: "anomalyteam@gmail.com",
+    email: "anomalitteam@gmail.com",
     infoTitle: "To help you faster, please include this information:",
     infoItems: [
       "macOS version you're using",

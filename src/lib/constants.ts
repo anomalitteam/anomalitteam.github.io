@@ -8,6 +8,6 @@ type SiteConfig = {
 
 export const SITE: SiteConfig = {
   name: "Anomaly Team",
-  url: "https://anomalyteam.github.io",
+  url: "https://anomalitteam.github.io",
   trialDays: 3,
 };

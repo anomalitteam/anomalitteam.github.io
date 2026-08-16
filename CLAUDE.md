@@ -14,11 +14,14 @@ encuentras `fairydreamstudio` o `anomalitfuture` en algún sitio —el remoto de
 de una copia local, un marcador, la ficha del App Store— es un resto de esa
 migración y hay que corregirlo, no conservarlo.
 
-- Repo de despliegue: `anomalyteam/anomalyteam.github.io` (**user page**,
-  se sirve en la raíz del dominio — por eso `next.config.ts` no necesita
-  `basePath` ni `assetPrefix`). El nombre del repo debe seguir coincidiendo
-  exactamente con el handle: si dejan de coincidir, GitHub lo pasa a servir como
-  project page bajo `/<repo>/` y harían falta `basePath` y `assetPrefix`
+- Repo de despliegue: `anomalitteam/anomalitteam.github.io` — organización y
+  repo se llaman igual, y **eso no es cosmético**: es lo único que hace que
+  GitHub lo sirva en la raíz del dominio, y por eso `next.config.ts` no necesita
+  `basePath` ni `assetPrefix`. Si dejan de coincidir, Pages lo publica como
+  project page bajo `/<repo>/` mientras el HTML sigue pidiendo sus assets en
+  `/_next/…`: la página carga sin estilos ni JavaScript. Pasó en agosto de 2026
+  con el repo llamado `anomalyteam.github.io` dentro de la organización
+  `anomalitteam`
 - Sitio estático puro (`output: "export"`): sin API, sin base de datos, sin
   lógica de servidor
 - Bilingüe ES/EN con un contexto de React propio, y tema claro/oscuro

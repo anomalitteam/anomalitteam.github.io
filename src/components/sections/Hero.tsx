@@ -37,10 +37,10 @@ export function Hero() {
 
       <div className="relative mx-auto w-full max-w-7xl px-6 pt-36 pb-28 sm:pt-40 sm:pb-32 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
+          <h1 className="hero-text text-4xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
             {t.hero.tagline}
           </h1>
-          <p className="mt-6 text-lg leading-relaxed text-text-secondary sm:text-xl">
+          <p className="hero-text mt-6 text-lg leading-relaxed text-text-secondary sm:text-xl">
             {t.hero.description}
           </p>
 
@@ -48,7 +48,9 @@ export function Hero() {
             <DownloadButton product={PRODUCTS.eazyshot} size="lg">
               {t.hero.cta}
             </DownloadButton>
-            <p className="text-sm text-text-secondary">{t.hero.priceNote}</p>
+            <p className="hero-text text-sm text-text-secondary">
+              {t.hero.priceNote}
+            </p>
           </div>
         </div>
       </div>

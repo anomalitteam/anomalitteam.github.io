@@ -233,10 +233,27 @@ La imagen lleva `priority`: es el elemento LCP de la landing y Next le añade su
 
 | Archivo | De dónde sale |
 |---|---|
-| `src/app/opengraph-image.png` | **Arte del autor.** No se genera |
-| `src/app/icon.png` | **Arte del autor.** No se genera |
+| `src/app/opengraph-image.jpg` | **Arte del autor.** No se genera |
+| `src/app/icon.png` · `src/app/favicon.ico` | **Arte del autor.** El `.ico` es su versión cuadrada de 256 px |
 | `src/app/eazyshot/opengraph-image.png` | Generada con `pnpm og` desde `scripts/og/eazyshot.tsx` |
 | `src/app/eazyshot/icon.png` | Copia del icono de la app |
+
+Tres cosas que costaron un rato averiguar y conviene no repetir:
+
+- **No dupliques estos archivos dentro de `(studio)/`.** Un `icon.png` o un
+  `opengraph-image.*` en el route group tiene prioridad sobre el de `app/` para
+  la home, y si en `app/` hay otro con el mismo nombre base Next les añade un
+  sufijo (`opengraph-image-1t4p6s.png`). Al cambiar el de `app/` a `.jpg`, las
+  metaetiquetas siguieron apuntando al `.png` sufijado del route group, que ya no
+  se generaba: `og:image` a un 404. Una sola copia, en `src/app/`.
+- **`favicon.ico` tiene que existir**, aunque haya `icon.png` y su `<link>`. Los
+  navegadores piden `/favicon.ico` por su cuenta; cuando se borró el de la
+  plantilla, esa petición pasó a devolver 404 y la pestaña mostraba el icono
+  genérico.
+- **La Open Graph no debe pasar de ~300 KB.** WhatsApp descarta las más pesadas y
+  la tarjeta sale sin imagen; el PNG original del autor pesaba 978 KB y en JPEG
+  de calidad 88 son 60 KB sin diferencia visible. El original está en
+  `assets-src/brand/`.
 
 Las dos primeras las aportó el autor en agosto de 2026 y sustituyeron a unas
 generadas; el script se recortó entonces para no volver a pisarlas. **Si añades

@@ -50,6 +50,33 @@
   --color-ez-text: #ff375f;
 }
 
+/*
+  Velo del hero: lo que hace legible el texto sobre el mock del Mac.
+
+  Se mezcla siempre contra `--color-bg-primary`, así que sigue al tema sin una
+  sola regla `dark:` — tira a blanco en claro y a negro en oscuro. Son dos capas:
+  una elipse opaca en el centro, que es la que garantiza el contraste justo
+  debajo del texto, y un degradado vertical que acaba en el color de fondo para
+  que el hero funda con la sección siguiente en vez de cortarse en seco. Los
+  laterales quedan limpios y ahí el mock se ve entero.
+*/
+.hero-veil {
+  background:
+    radial-gradient(
+      ellipse 72% 58% at 50% 46%,
+      color-mix(in oklab, var(--color-bg-primary) 88%, transparent) 0%,
+      color-mix(in oklab, var(--color-bg-primary) 70%, transparent) 55%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-bg-primary) 70%, transparent) 0%,
+      color-mix(in oklab, var(--color-bg-primary) 42%, transparent) 45%,
+      color-mix(in oklab, var(--color-bg-primary) 82%, transparent) 82%,
+      var(--color-bg-primary) 100%
+    );
+}
+
 html {
   scroll-behavior: smooth;
 }

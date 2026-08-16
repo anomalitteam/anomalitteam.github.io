@@ -189,20 +189,45 @@ cual en *Cómo funciona*. Con `output: "export"` no hay optimizador de imágenes
 en `public/` es exactamente lo que descarga el visitante. Las cuatro capturas
 sumaban 6,2 MB; ahora la carpeta entera son 636 KB, sin diferencia visible.
 
-Para regenerar una tras sustituir su PNG (`sips` viene con macOS):
+Para regenerar una captura tras sustituir su PNG (`sips` viene con macOS):
 
 ```bash
 sips -s format jpeg -s formatOptions 85 -Z 1200 assets-src/eazyshot/funcion-1.png \
   --out public/images/eazyshot/funcion-1.jpg
-# el hero va más ancho porque se muestra a 1152 px:
-sips -s format jpeg -s formatOptions 82 --resampleWidth 1920 assets-src/eazyshot/funcion-3.png \
-  --out public/images/eazyshot/hero.jpg
 ```
 
-El `<Image>` del hero declara `width`/`height` reales (1920×1247) y lleva
-`priority`: es el elemento LCP de la landing y Next le añade su `<link
-rel="preload">`. Si cambias la captura por otra de distinta proporción, actualiza
-esos números o aparecerá un salto de maquetación.
+**El hero es la excepción y va en WebP**: el mock del Mac tiene fondo
+transparente, así que en JPEG saldría un rectángulo blanco o negro alrededor del
+portátil —visible justo en el tema contrario— y en PNG pesa 2 MB. WebP conserva
+el alfa en 74 KB. `sips` no sabe escribir WebP, pero `sharp` está en
+`node_modules` como dependencia de Next:
+
+```bash
+SHARP=$(find node_modules/.pnpm -maxdepth 4 -type d -name sharp | head -1)
+node -e "
+require('./$SHARP')('assets-src/eazyshot/hero-mock.png')
+  .resize({ width: 2000, withoutEnlargement: true })
+  .webp({ quality: 82, alphaQuality: 90, effort: 6 })
+  .toFile('public/images/eazyshot/hero.webp').then(i => console.log(i.size));
+"
+```
+
+### El hero son tres capas
+
+`Hero.tsx` monta el mock del Mac a sangre completa (`<Image fill>`), encima el
+velo `.hero-veil` y encima el texto. `fill` es deliberado: así la imagen se
+recorta sola por los lados en móvil, donde un mock apaisado entero se vería
+diminuto, sin necesidad de una segunda maquetación.
+
+`.hero-veil` (en `globals.css`) es lo que hace legible el texto sobre la imagen y
+**se adapta al tema sin una sola regla `dark:`**: mezcla con `color-mix` contra
+`--color-bg-primary`, así que tira a blanco en claro y a negro en oscuro. La
+elipse central opaca es la que garantiza el contraste bajo el texto — si la
+suavizas, el contraste pasa a depender de lo que haya en la foto. El degradado
+vertical termina en el color de fondo opaco para fundir con *Funciones*.
+
+La imagen lleva `priority`: es el elemento LCP de la landing y Next le añade su
+`<link rel="preload">`.
 
 ### Imágenes de marca: dos orígenes distintos
 

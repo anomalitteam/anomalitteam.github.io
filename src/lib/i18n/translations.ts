@@ -54,9 +54,8 @@ const es: Translations = {
       "EazyShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
     cta: "Descargar prueba gratis",
     priceNote: "Pago único · $69 MXN · 3 días de prueba",
-    image: "/images/eazyshot/hero.jpg",
-    imageAlt:
-      "EazyShot capturando una región de la pantalla, con la barra de anotaciones flotante y un texto y unas flechas dibujados sobre la captura",
+    image: "/images/eazyshot/hero.webp",
+    imageAlt: "EazyShot editando una captura en un Mac",
   },
   features: {
     label: "Funciones",
@@ -403,9 +402,8 @@ const en: Translations = {
       "EazyShot is the screenshot tool every Mac user needs. Annotate, censor, number, and share screenshots instantly from the menu bar.",
     cta: "Download Free Trial",
     priceNote: "One-time · $2.99 USD · 3-day trial",
-    image: "/images/eazyshot/hero.jpg",
-    imageAlt:
-      "EazyShot capturing a screen region, showing the floating annotation toolbar and text and arrows drawn over the capture",
+    image: "/images/eazyshot/hero.webp",
+    imageAlt: "EazyShot editing a screenshot on a Mac",
   },
   features: {
     label: "Features",

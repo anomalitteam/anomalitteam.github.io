@@ -21,6 +21,9 @@ export interface HeroTranslations {
   description: string;
   cta: string;
   priceNote: string;
+  /** Captura de la app en acción. Es la imagen LCP de la landing. */
+  image: string;
+  imageAlt: string;
 }
 
 export interface Section {

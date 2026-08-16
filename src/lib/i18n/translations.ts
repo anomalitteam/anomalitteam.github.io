@@ -54,6 +54,9 @@ const es: Translations = {
       "EazyShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
     cta: "Descargar prueba gratis",
     priceNote: "Pago único · $69 MXN · 3 días de prueba",
+    image: "/images/eazyshot/hero.jpg",
+    imageAlt:
+      "EazyShot capturando una región de la pantalla, con la barra de anotaciones flotante y un texto y unas flechas dibujados sobre la captura",
   },
   features: {
     label: "Funciones",
@@ -116,28 +119,28 @@ const es: Translations = {
         title: "Activa desde la barra de menú",
         description:
           "Haz clic en el icono de EazyShot en tu barra de menú o usa un atajo de teclado personalizado. La app está siempre a un clic de distancia.",
-        image: "/images/eazyshot/funcion-1.png",
+        image: "/images/eazyshot/funcion-1.jpg",
       },
       {
         step: 2,
         title: "Selecciona o captura",
         description:
           "Arrastra para seleccionar una región o captura la pantalla completa. El overlay cubre todos tus monitores.",
-        image: "/images/eazyshot/funcion-2.png",
+        image: "/images/eazyshot/funcion-2.jpg",
       },
       {
         step: 3,
         title: "Anota si lo necesitas",
         description:
           "Añade rectángulos, flechas, texto, blur para ocultar información sensible, o numeración para guías paso a paso.",
-        image: "/images/eazyshot/funcion-3.png",
+        image: "/images/eazyshot/funcion-3.jpg",
       },
       {
         step: 4,
         title: "Copia o guarda",
         description:
           "Copia al portapapeles con Cmd+C o guarda como PNG en tu carpeta preferida. En modo EZ, va directo al portapapeles.",
-        image: "/images/eazyshot/funcion-4.png",
+        image: "/images/eazyshot/funcion-4.jpg",
       },
     ],
   },
@@ -400,6 +403,9 @@ const en: Translations = {
       "EazyShot is the screenshot tool every Mac user needs. Annotate, censor, number, and share screenshots instantly from the menu bar.",
     cta: "Download Free Trial",
     priceNote: "One-time · $2.99 USD · 3-day trial",
+    image: "/images/eazyshot/hero.jpg",
+    imageAlt:
+      "EazyShot capturing a screen region, showing the floating annotation toolbar and text and arrows drawn over the capture",
   },
   features: {
     label: "Features",
@@ -462,28 +468,28 @@ const en: Translations = {
         title: "Activate from the menu bar",
         description:
           "Click the EazyShot icon in your menu bar or use a custom keyboard shortcut. The app is always one click away.",
-        image: "/images/eazyshot/funcion-1.png",
+        image: "/images/eazyshot/funcion-1.jpg",
       },
       {
         step: 2,
         title: "Select or capture",
         description:
           "Drag to select a region or capture the full screen. The overlay covers all your monitors.",
-        image: "/images/eazyshot/funcion-2.png",
+        image: "/images/eazyshot/funcion-2.jpg",
       },
       {
         step: 3,
         title: "Annotate if needed",
         description:
           "Add rectangles, arrows, text, blur to hide sensitive info, or numbering for step-by-step guides.",
-        image: "/images/eazyshot/funcion-3.png",
+        image: "/images/eazyshot/funcion-3.jpg",
       },
       {
         step: 4,
         title: "Copy or save",
         description:
           "Copy to clipboard with Cmd+C or save as PNG in your preferred folder. In EZ mode, it goes directly to clipboard.",
-        image: "/images/eazyshot/funcion-4.png",
+        image: "/images/eazyshot/funcion-4.jpg",
       },
     ],
   },

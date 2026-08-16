@@ -177,23 +177,55 @@ componente. **No enlaces un CTA a mano desde una sección.**
 con `target="_blank"` y `rel="noopener noreferrer"`; el resto va por `<Link>`.
 Sin `href`, o con `disabled`, sale como `<button>`.
 
-### Las imágenes generadas se versionan como PNG, y hay un motivo
+### Las capturas se publican en JPEG, y el PNG original no se borra
 
-Las Open Graph y el favicon del equipo salen de `next/og`, pero **sus fuentes
-viven en `scripts/og/`, fuera de `app/`**, y lo que se versiona es el PNG ya
-cocinado (`src/app/opengraph-image.png`, `src/app/eazyshot/opengraph-image.png`,
-`src/app/icon.png`).
+`public/images/eazyshot/` contiene solo JPEG redimensionados; los PNG que salen
+del Mac viven en **`assets-src/eazyshot/`, fuera de `public/`**, así que no se
+publican pero tampoco se pierden.
 
-El motivo: con la convención normal (`app/opengraph-image.tsx`), Next emite la
-imagen en una ruta **sin extensión** (`out/opengraph-image`). GitHub Pages decide
-el `Content-Type` por la extensión, así que la serviría como
-`application/octet-stream` y los scrapers de WhatsApp, Slack o X la descartan —
-la tarjeta sale sin imagen, que es justo lo que se venía a arreglar.
+El motivo es de peso: `funcion-3.png` pesaba 4,8 MB y ya se estaba sirviendo tal
+cual en *Cómo funciona*. Con `output: "export"` no hay optimizador de imágenes
+—de ahí el `unoptimized` obligatorio en cada `<Image>`—, así que lo que se pone
+en `public/` es exactamente lo que descarga el visitante. Las cuatro capturas
+sumaban 6,2 MB; ahora la carpeta entera son 636 KB, sin diferencia visible.
 
-Para regenerarlas tras cambiar un texto o el color de marca:
+Para regenerar una tras sustituir su PNG (`sips` viene con macOS):
 
 ```bash
-pnpm og     # copia las fuentes a app/, construye, guarda los PNG y limpia
+sips -s format jpeg -s formatOptions 85 -Z 1200 assets-src/eazyshot/funcion-1.png \
+  --out public/images/eazyshot/funcion-1.jpg
+# el hero va más ancho porque se muestra a 1152 px:
+sips -s format jpeg -s formatOptions 82 --resampleWidth 1920 assets-src/eazyshot/funcion-3.png \
+  --out public/images/eazyshot/hero.jpg
+```
+
+El `<Image>` del hero declara `width`/`height` reales (1920×1247) y lleva
+`priority`: es el elemento LCP de la landing y Next le añade su `<link
+rel="preload">`. Si cambias la captura por otra de distinta proporción, actualiza
+esos números o aparecerá un salto de maquetación.
+
+### Imágenes de marca: dos orígenes distintos
+
+| Archivo | De dónde sale |
+|---|---|
+| `src/app/opengraph-image.png` | **Arte del autor.** No se genera |
+| `src/app/icon.png` | **Arte del autor.** No se genera |
+| `src/app/eazyshot/opengraph-image.png` | Generada con `pnpm og` desde `scripts/og/eazyshot.tsx` |
+| `src/app/eazyshot/icon.png` | Copia del icono de la app |
+
+Las dos primeras las aportó el autor en agosto de 2026 y sustituyeron a unas
+generadas; el script se recortó entonces para no volver a pisarlas. **Si añades
+un generador nuevo, no lo apuntes a esos dos archivos.**
+
+Todo lo generado se versiona como PNG en lugar de dejarlo como ruta de Next. El
+motivo: con la convención normal (`app/opengraph-image.tsx`), Next emite la
+imagen **sin extensión** (`out/eazyshot/opengraph-image`), y GitHub Pages decide
+el `Content-Type` por la extensión — la serviría como `application/octet-stream`
+y los scrapers de WhatsApp, Slack o X la descartarían, dejando la tarjeta sin
+imagen, que es justo lo que se venía a arreglar.
+
+```bash
+pnpm og     # copia la fuente a app/, construye, guarda el PNG y limpia
 ```
 
 Cualquier ruta de metadata generada (`sitemap.ts`, `robots.ts`, `opengraph-image`)
@@ -289,8 +321,6 @@ Observaciones, no tareas asignadas. Confirmar antes de actuar.
 - **Los precios de ES y EN no son equivalentes**: `$69 MXN` frente a `$2.99 USD`
   (≈ $50 MXN), y la referencia de la competencia igual (`~$499 MXN` vs `~$29
   USD`). Puede ser precio regional deliberado del App Store; sin confirmar.
-- El Hero no tiene imagen. Las cuatro capturas de
-  `public/images/eazyshot/funcion-*.png` solo se usan en *Cómo funciona*.
 - Las imágenes se agrupan por producto (`public/images/<id>/`) para que la
   segunda app no colisione con la primera.
 - Las variantes `secondary` y `ghost` de `Button` están definidas y no se usan

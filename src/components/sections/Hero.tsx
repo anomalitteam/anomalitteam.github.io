@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { DownloadButton } from "@/components/ui/DownloadButton";
 import { useT } from "@/lib/i18n/context";
 import { PRODUCTS } from "@/lib/products";
@@ -25,6 +26,26 @@ export function Hero() {
               {t.hero.cta}
             </DownloadButton>
             <p className="text-sm text-text-secondary">{t.hero.priceNote}</p>
+          </div>
+        </div>
+
+        {/*
+          La captura es el elemento LCP de la landing: va con `priority` para que
+          no espere al resto, y con `sizes` para que el navegador sepa que nunca
+          se muestra a más de 1152 px (max-w-6xl) aunque el archivo sea mayor.
+        */}
+        <div className="mt-16 sm:mt-20">
+          <div className="mx-auto max-w-6xl overflow-hidden rounded-2xl border border-border shadow-2xl">
+            <Image
+              src={t.hero.image}
+              alt={t.hero.imageAlt}
+              width={1920}
+              height={1247}
+              sizes="(max-width: 1152px) 100vw, 1152px"
+              priority
+              unoptimized
+              className="h-auto w-full"
+            />
           </div>
         </div>
       </div>

@@ -2,28 +2,37 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
+/*
+  Este bloque NO lleva `inline`, y es lo que hace que el modo oscuro funcione.
+  Con `@theme inline` Tailwind sustituye el valor dentro de cada utilidad
+  (`.text-text-primary{color:#1d1d1f}`), así que redefinir la variable en `.dark`
+  no cambiaba nada: solo el `body` la leía, y todo lo que llevara una clase de
+  color explícita se quedaba con el tema claro sobre fondo negro. Sin `inline`,
+  las utilidades compilan a `var(--color-…)` y `.dark` sí las reescribe.
+
+  `accent` y `accent-surface` tampoco son intercambiables: el primero es para
+  texto e iconos sobre el fondo de la página, el segundo es el relleno de un
+  botón y lo que se escribe encima va en `on-accent`. En oscuro el acento se
+  aclara para leerse sobre negro, y por eso mismo deja de servir como fondo de
+  un texto blanco: ahí la superficie se oscurece.
+*/
+@theme {
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f5f5f7;
   --color-text-primary: #1d1d1f;
   --color-text-secondary: #6e6e73;
   --color-accent: #0071e3;
-  --color-accent-hover: #0077ed;
+  --color-accent-surface: #0071e3;
+  --color-accent-surface-hover: #0077ed;
+  --color-on-accent: #ffffff;
   --color-border: #d2d2d7;
+  /* Iconos y estados apagados: `border` no llega al 3:1 mínimo de un gráfico. */
+  --color-muted: #86868b;
   --color-ez: #ff375f;
+  /* El rosa de marca a tamaño de texto: #ff375f sobre blanco se queda en 3.5:1. */
+  --color-ez-text: #d70036;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-}
-
-:root {
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f5f5f7;
-  --color-text-primary: #1d1d1f;
-  --color-text-secondary: #6e6e73;
-  --color-accent: #0071e3;
-  --color-accent-hover: #0077ed;
-  --color-border: #d2d2d7;
-  --color-ez: #ff375f;
 }
 
 .dark {
@@ -32,9 +41,13 @@
   --color-text-primary: #f5f5f7;
   --color-text-secondary: #98989d;
   --color-accent: #2997ff;
-  --color-accent-hover: #40a0ff;
+  --color-accent-surface: #0068d1;
+  --color-accent-surface-hover: #0071e3;
+  --color-on-accent: #ffffff;
   --color-border: #48484a;
+  --color-muted: #6e6e73;
   --color-ez: #ff375f;
+  --color-ez-text: #ff375f;
 }
 
 html {

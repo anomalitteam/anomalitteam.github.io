@@ -23,7 +23,7 @@ export function Pricing() {
 
         <ScrollReveal className="mt-16 mx-auto max-w-md">
           <div className="relative rounded-3xl border-2 border-accent bg-bg-primary p-8 sm:p-10">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-accent px-4 py-1 text-xs font-semibold text-white">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-accent-surface px-4 py-1 text-xs font-semibold text-on-accent">
               {section.badge}
             </div>
 

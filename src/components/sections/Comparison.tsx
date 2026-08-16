@@ -10,7 +10,7 @@ function renderCell(value: string | boolean) {
     return <Check className="mx-auto h-4 w-4 text-text-secondary" />;
   }
   if (value === false) {
-    return <Minus className="mx-auto h-4 w-4 text-border" />;
+    return <Minus className="mx-auto h-4 w-4 text-muted" />;
   }
   return <span className="text-xs text-text-secondary">{value}</span>;
 }

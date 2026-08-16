@@ -175,12 +175,30 @@ conocido".
 ### Tema y tokens de color
 
 No hay `tailwind.config.ts` — es Tailwind 4 y toda la configuración vive en
-`globals.css`: los tokens en `@theme inline`, y una variante custom
+`globals.css`: los tokens en `@theme`, y una variante custom
 `@custom-variant dark (&:where(.dark, .dark *))` que se acopla al
 `attribute="class"` de `next-themes`. Los colores se usan siempre por token
-(`bg-bg-primary`, `text-text-secondary`, `text-accent`, `text-ez`), nunca como
-hex suelto. `--color-ez` (`#ff375f`) es el rosa de la marca: las letras E y Z del
-logo y el icono de los modos rápidos.
+(`bg-bg-primary`, `text-text-secondary`, `text-accent`), nunca como hex suelto.
+
+**Ese bloque no puede llevar `inline`.** Con `@theme inline` Tailwind mete el
+valor dentro de cada utilidad (`.text-text-primary{color:#1d1d1f}`), de modo que
+redefinir la variable en `.dark` no cambia nada: solo el `body` la leía y todo lo
+que tuviera una clase de color explícita se quedaba con el tema claro sobre fondo
+negro. Estuvo así hasta agosto de 2026. Si el modo oscuro vuelve a "no aplicarse",
+lo primero que hay que mirar es si alguien reintrodujo `inline`; se comprueba
+buscando `var(--color-` en el CSS de `out/`: si casi no aparece, es eso.
+
+Tres pares de tokens que **no son intercambiables**:
+
+- `accent` es para texto e iconos sobre el fondo de la página; `accent-surface`
+  es el relleno de un botón y encima va `on-accent`. En oscuro el acento se
+  aclara (`#2997ff`) para leerse sobre negro, y por eso deja de servir de fondo
+  para texto blanco: ahí la superficie se oscurece (`#0068d1`).
+- `muted` es para iconos y estados apagados. `border` es un gris de línea y no
+  llega al 3:1 que necesita un elemento gráfico.
+- `ez` (`#ff375f`) es el rosa de marca para superficies y texto grande;
+  `ez-text` es su versión legible a tamaño pequeño (en claro baja a `#d70036`,
+  porque el rosa sobre blanco se queda en 3.5:1).
 
 `ThemeToggle` pinta un `<div>` vacío del mismo tamaño hasta que monta; sin eso
 `next-themes` provoca un desajuste de hidratación.

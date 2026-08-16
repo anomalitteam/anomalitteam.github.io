@@ -30,7 +30,7 @@ export function HowItWorks() {
                   } items-center`}
                 >
                   <div className="flex-1 flex gap-5 sm:gap-6">
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-accent text-white text-lg font-bold shadow-sm">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-accent-surface text-on-accent text-lg font-bold shadow-sm">
                       {step.step}
                     </div>
                     <div className="pt-0.5">

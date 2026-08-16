@@ -19,7 +19,7 @@ const es: Translations = {
   },
   studio: {
     meta: {
-      title: "Fairy Dream Studio — Apps para Mac",
+      title: "Anomaly Team — Apps para Mac",
       description:
         "Estudio independiente de aplicaciones para el ecosistema de Apple. Herramientas cuidadas, sin suscripciones y con pago único.",
     },
@@ -254,7 +254,6 @@ const es: Translations = {
     faq: "FAQ",
     support: "Soporte",
     privacy: "Privacidad",
-    copyright: "Hecho para macOS.",
     oneTime: "Pago único. Sin suscripciones.",
   },
   privacy: {
@@ -264,7 +263,7 @@ const es: Translations = {
       {
         title: "Introducción",
         body: [
-          "EazyShot es una aplicación de captura de pantalla para macOS desarrollada por Fairy Dream Studio. Esta política de privacidad explica cómo manejamos tus datos y tus capturas de pantalla. Al usar EazyShot, aceptas las prácticas descritas en este documento.",
+          "EazyShot es una aplicación de captura de pantalla para macOS desarrollada por Anomaly Team. Esta política de privacidad explica cómo manejamos tus datos y tus capturas de pantalla. Al usar EazyShot, aceptas las prácticas descritas en este documento.",
         ],
       },
       {
@@ -311,7 +310,7 @@ const es: Translations = {
       {
         title: "Compras y licencias",
         body: [
-          "La compra de EazyShot Pro se procesa a través de la plataforma que elijas para adquirir la licencia. Fairy Dream Studio no recolecta ni almacena información de pago. Los datos de tu transacción son manejados exclusivamente por el procesador de pagos correspondiente.",
+          "La compra de EazyShot Pro se procesa a través de la plataforma que elijas para adquirir la licencia. Anomaly Team no recolecta ni almacena información de pago. Los datos de tu transacción son manejados exclusivamente por el procesador de pagos correspondiente.",
         ],
       },
       {
@@ -329,13 +328,13 @@ const es: Translations = {
       },
     ],
     contact: "Para cualquier consulta sobre privacidad, escríbenos a:",
-    contactEmail: "fairydreamstudio@gmail.com",
+    contactEmail: "anomalyteam@gmail.com",
   },
   support: {
     title: "Soporte",
     intro: "¿Tienes problemas con EazyShot? Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.",
     emailLabel: "Correo de soporte",
-    email: "fairydreamstudio@gmail.com",
+    email: "anomalyteam@gmail.com",
     infoTitle: "Para ayudarte más rápido, incluye esta información:",
     infoItems: [
       "Versión de macOS que estás usando",
@@ -366,7 +365,7 @@ const en: Translations = {
   },
   studio: {
     meta: {
-      title: "Fairy Dream Studio — Mac Apps",
+      title: "Anomaly Team — Mac Apps",
       description:
         "Independent studio building apps for the Apple ecosystem. Carefully crafted tools, no subscriptions, one-time payment.",
     },
@@ -600,7 +599,6 @@ const en: Translations = {
     faq: "FAQ",
     support: "Support",
     privacy: "Privacy",
-    copyright: "Made for macOS.",
     oneTime: "One-time payment. No subscriptions.",
   },
   privacy: {
@@ -610,7 +608,7 @@ const en: Translations = {
       {
         title: "Introduction",
         body: [
-          "EazyShot is a screenshot application for macOS developed by Fairy Dream Studio. This privacy policy explains how we handle your data and screenshots. By using EazyShot, you agree to the practices described in this document.",
+          "EazyShot is a screenshot application for macOS developed by Anomaly Team. This privacy policy explains how we handle your data and screenshots. By using EazyShot, you agree to the practices described in this document.",
         ],
       },
       {
@@ -657,7 +655,7 @@ const en: Translations = {
       {
         title: "Purchases and Licenses",
         body: [
-          "The purchase of EazyShot Pro is processed through the platform you choose to acquire the license. Fairy Dream Studio does not collect or store payment information. Your transaction data is handled exclusively by the corresponding payment processor.",
+          "The purchase of EazyShot Pro is processed through the platform you choose to acquire the license. Anomaly Team does not collect or store payment information. Your transaction data is handled exclusively by the corresponding payment processor.",
         ],
       },
       {
@@ -675,13 +673,13 @@ const en: Translations = {
       },
     ],
     contact: "For any privacy inquiries, reach out to us at:",
-    contactEmail: "fairydreamstudio@gmail.com",
+    contactEmail: "anomalyteam@gmail.com",
   },
   support: {
     title: "Support",
     intro: "Having issues with EazyShot? We're here to help. Reach out and we'll get back to you as soon as possible.",
     emailLabel: "Support email",
-    email: "fairydreamstudio@gmail.com",
+    email: "anomalyteam@gmail.com",
     infoTitle: "To help you faster, please include this information:",
     infoItems: [
       "macOS version you're using",

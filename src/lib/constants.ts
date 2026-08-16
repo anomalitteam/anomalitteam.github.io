@@ -7,7 +7,7 @@ type SiteConfig = {
 };
 
 export const SITE: SiteConfig = {
-  name: "Fairy Dream Studio",
-  url: "https://fairydreamstudio.github.io",
+  name: "Anomaly Team",
+  url: "https://anomalyteam.github.io",
   trialDays: 3,
 };

@@ -75,7 +75,6 @@ export interface FooterTranslations {
   faq: string;
   support: string;
   privacy: string;
-  copyright: string;
   oneTime: string;
 }
 

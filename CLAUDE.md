@@ -4,13 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Proyecto
 
-EzWeb es el sitio público de **Fairy Dream Studio**: un escaparate de los
-proyectos del estudio. Hoy contiene un único producto, **EazyShot**, la app de
-capturas de pantalla para macOS.
+EzWeb es el sitio público de **Anomaly Team**: un escaparate de los proyectos del
+equipo. Hoy contiene un único producto, **EazyShot**, la app de capturas de
+pantalla para macOS.
 
-- Repo de despliegue: `fairydreamstudio/fairydreamstudio.github.io` (**user
-  page**, se sirve en la raíz del dominio — por eso `next.config.ts` no necesita
-  `basePath` ni `assetPrefix`)
+El nombre cambió en agosto de 2026 (antes *Fairy Dream Studio*, y brevemente
+*Anomalit Future*): nombre, dominio y correo se movieron a la vez. Si te
+encuentras `fairydreamstudio` o `anomalitfuture` en algún sitio —el remoto de git
+de una copia local, un marcador, la ficha del App Store— es un resto de esa
+migración y hay que corregirlo, no conservarlo.
+
+- Repo de despliegue: `anomalyteam/anomalyteam.github.io` (**user page**,
+  se sirve en la raíz del dominio — por eso `next.config.ts` no necesita
+  `basePath` ni `assetPrefix`). El nombre del repo debe seguir coincidiendo
+  exactamente con el handle: si dejan de coincidir, GitHub lo pasa a servir como
+  project page bajo `/<repo>/` y harían falta `basePath` y `assetPrefix`
 - Sitio estático puro (`output: "export"`): sin API, sin base de datos, sin
   lógica de servidor
 - Bilingüe ES/EN con un contexto de React propio, y tema claro/oscuro

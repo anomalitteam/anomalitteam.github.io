@@ -52,7 +52,6 @@ const es: Translations = {
     tagline: "Capturas de pantalla profesionales en segundos",
     description:
       "EazyShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
-    cta: "Descargar prueba gratis",
     priceNote: "Pago único · $69 MXN · 3 días de prueba",
     image: "/images/eazyshot/hero.webp",
     imageAlt: "EazyShot editando una captura en un Mac",
@@ -187,7 +186,6 @@ const es: Translations = {
     badge: "Pago único",
     planName: "EazyShot Pro",
     price: "$69 MXN",
-    cta: "Descargar prueba gratis",
     trial: "3 días de prueba gratuita con todas las funciones",
     includesTitle: "Todo incluido",
     features: [
@@ -400,7 +398,6 @@ const en: Translations = {
     tagline: "Professional Screenshots in Seconds",
     description:
       "EazyShot is the screenshot tool every Mac user needs. Annotate, censor, number, and share screenshots instantly from the menu bar.",
-    cta: "Download Free Trial",
     priceNote: "One-time · $2.99 USD · 3-day trial",
     image: "/images/eazyshot/hero.webp",
     imageAlt: "EazyShot editing a screenshot on a Mac",
@@ -534,7 +531,6 @@ const en: Translations = {
     badge: "One-Time",
     planName: "EazyShot Pro",
     price: "$2.99 USD",
-    cta: "Download Free Trial",
     trial: "3-day free trial with all features",
     includesTitle: "Everything Included",
     features: [

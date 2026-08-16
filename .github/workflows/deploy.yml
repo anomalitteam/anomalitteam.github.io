@@ -26,7 +26,13 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
       - run: pnpm build
+      # Sobre el sitio ya construido: comprueba lo que acaba en Pages —idiomas,
+      # hreflang, og:image, CTA con destino, FAQ indexable, peso de imágenes—.
+      # Si algo de esto falla, el despliegue se detiene aquí.
+      - run: pnpm test
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { DownloadButton } from "@/components/ui/DownloadButton";
+import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
 import { useT } from "@/lib/i18n/context";
 import { PRODUCTS } from "@/lib/products";
 
@@ -22,9 +22,7 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <DownloadButton product={PRODUCTS.eazyshot} size="lg">
-              {t.hero.cta}
-            </DownloadButton>
+            <AppStoreBadge product={PRODUCTS.eazyshot} />
             <p className="text-sm text-text-secondary">{t.hero.priceNote}</p>
           </div>
         </div>

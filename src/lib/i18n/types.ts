@@ -19,7 +19,6 @@ export interface Meta {
 export interface HeroTranslations {
   tagline: string;
   description: string;
-  cta: string;
   priceNote: string;
   /** Captura de la app en acción. Es la imagen LCP de la landing. */
   image: string;
@@ -66,7 +65,6 @@ export interface PricingTranslations {
   badge: string;
   planName: string;
   price: string;
-  cta: string;
   trial: string;
   includesTitle: string;
   features: string[];

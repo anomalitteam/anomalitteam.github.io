@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { DownloadButton } from "@/components/ui/DownloadButton";
+import { AppStoreBadge } from "@/components/ui/AppStoreBadge";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useT } from "@/lib/i18n/context";
 import { SITE } from "@/lib/constants";
@@ -40,14 +40,8 @@ export function Pricing() {
                 {SITE.trialDays} {section.trial}
               </p>
 
-              <div className="mt-8">
-                <DownloadButton
-                  product={PRODUCTS.eazyshot}
-                  size="lg"
-                  className="w-full"
-                >
-                  {section.cta}
-                </DownloadButton>
+              <div className="mt-8 flex justify-center">
+                <AppStoreBadge product={PRODUCTS.eazyshot} />
               </div>
 
               <p className="mt-3 text-xs text-text-secondary">

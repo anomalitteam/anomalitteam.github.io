@@ -88,8 +88,25 @@ pnpm dev        # servidor de desarrollo
 pnpm build      # export estático → out/
 pnpm lint       # eslint
 pnpm typecheck  # tsc --noEmit
-pnpm og         # regenera las imágenes Open Graph y el favicon (ver más abajo)
+pnpm test       # comprobaciones sobre out/ — requiere haber hecho build
+pnpm og         # regenera la Open Graph de EazyShot (ver más abajo)
 ```
+
+### Los tests miran el HTML publicado, no los componentes
+
+`tests/smoke.test.mjs` (con `node --test`, sin framework) recorre `out/` y
+comprueba lo que llega a Pages: las ocho rutas de contenido, el `lang` de cada
+árbol, canonical y `hreflang`, que **cada `og:image` apunte a un archivo que
+existe**, que los CTA lleven la insignia de Apple con enlace real, que el FAQ
+exporte sus ocho respuestas, que no reaparezca la palabra "blur" ni un nombre
+antiguo del estudio, y que ninguna imagen pase de 300 KB.
+
+Cada caso nació de un fallo real de agosto de 2026, y todos se detectaron a mano
+—uno de ellos ya en producción—. **Al arreglar algo que solo se ve en el HTML
+final, añade el caso aquí**: es el único sitio del proyecto donde queda fijado.
+
+`deploy.yml` ejecuta `typecheck`, `lint`, `build` y `test` antes de publicar, así
+que un fallo detiene el despliegue en lugar de salir a producción.
 
 `pnpm` es obligatorio: el workflow instala con `--frozen-lockfile` contra
 `pnpm-lock.yaml`, y `pnpm-workspace.yaml` declara los `allowBuilds` (`sharp`,
@@ -165,9 +182,17 @@ sin icono.
 
 ### Los CTA pasan todos por `DownloadButton`
 
-Los botones de conversión (dos en `Navbar`, uno en `Hero`, uno en `Pricing`)
-usan `ui/DownloadButton.tsx`, no `Button` directamente, y reciben el producto por
-props. El destino de cada uno vive en un solo sitio: `PRODUCTS[id].appStoreUrl`
+En `Hero` y `Pricing` el CTA es `ui/AppStoreBadge.tsx`: la **insignia oficial**
+de Apple, descargada de su Marketing Tools a `public/badges/` en cuatro variantes
+(dos idiomas × negro y blanco). No es una recreación, y no debe serlo — Apple
+exige sus propios assets. Los dos colores existen porque el negro desaparece
+sobre el fondo oscuro; se alternan por CSS (`dark:hidden`), no por JavaScript,
+para que no parpadeen al hidratar. Si un producto no tiene `appStoreUrl`, la
+insignia cae al botón de "Próximamente": la marca de Apple solo puede acompañar
+a un enlace real a la tienda.
+
+`Navbar` conserva `ui/DownloadButton.tsx` —texto corto, que es lo que cabe en la
+barra—, y ambos reciben el producto por props. El destino de cada uno vive en un solo sitio: `PRODUCTS[id].appStoreUrl`
 (`lib/products.ts`). Si esa URL está vacía, el botón se pinta deshabilitado con
 `t.cta.comingSoon`; en cuanto se le pega la ficha, todos enlazan sin tocar ningún
 componente. **No enlaces un CTA a mano desde una sección.**
@@ -230,12 +255,20 @@ salto de maquetación.
 
 | Archivo | De dónde sale |
 |---|---|
-| `src/app/opengraph-image.jpg` | **Arte del autor.** No se genera |
+| `src/app/(es)/opengraph-image.jpg` · `(en)/` | **Arte del autor.** No se genera. Una copia por idioma |
 | `src/app/icon.png` · `src/app/favicon.ico` | **Arte del autor.** El `.ico` es su versión cuadrada de 256 px |
 | `src/app/eazyshot/opengraph-image.png` | Generada con `pnpm og` desde `scripts/og/eazyshot.tsx` |
 | `src/app/eazyshot/icon.png` | Copia del icono de la app |
 
-Tres cosas que costaron un rato averiguar y conviene no repetir:
+**`opengraph-image` va junto al layout, no en `app/`.** Next asocia esa imagen al
+segmento que tiene layout, y desde que hay dos root layouts (uno por idioma)
+`app/` ya no tiene ninguno: el archivo se seguía generando, pero ninguna página
+lo enlazaba y la home se quedó sin `og:image` —con `twitter:card` cayendo a
+`summary`— hasta que se detectó **en producción**. Por eso hay una copia en
+`(es)/` y otra en `(en)/`. Los iconos sí se heredan desde `app/`; la Open Graph
+no. Al añadir un idioma, copiar también la imagen.
+
+Tres cosas más que costaron un rato averiguar y conviene no repetir:
 
 - **No dupliques estos archivos dentro de `(studio)/`.** Un `icon.png` o un
   `opengraph-image.*` en el route group tiene prioridad sobre el de `app/` para
@@ -400,7 +433,10 @@ Observaciones, no tareas asignadas. Confirmar antes de actuar.
   `out/eazyshot.html`, así que tampoco hay flash antes de hidratar) y con
   `aria-hidden` para que los lectores de pantalla no anuncien lo colapsado.
   No volver a envolverlo en `AnimatePresence`.
-- No hay tests de ningún tipo.
+- `src/app/not-found.tsx` trae su propio `<html>` y sus textos escritos a mano en
+  los dos idiomas. No es un descuido: una URL inexistente no cuelga de ninguno de
+  los dos root layouts, así que no puede heredar ni el idioma ni el proveedor de
+  traducciones.
 - `docs/specs/2026-07-14-ezweb-landing-design.md` es el spec original y está
   **desfasado**: llama al producto "EZShot", asume despliegue en Vercel,
   contenido en `lib/content.ts`, precio $9.99 USD, y lista i18n como *non-goal*

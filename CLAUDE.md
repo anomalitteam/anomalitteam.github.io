@@ -382,9 +382,13 @@ Tres pares de tokens que **no son intercambiables**:
   para texto blanco: ahí la superficie se oscurece (`#0068d1`).
 - `muted` es para iconos y estados apagados. `border` es un gris de línea y no
   llega al 3:1 que necesita un elemento gráfico.
-- `ez` (`#ff375f`) es el rosa de marca para superficies y texto grande;
-  `ez-text` es su versión legible a tamaño pequeño (en claro baja a `#d70036`,
-  porque el rosa sobre blanco se queda en 3.5:1).
+- `ez` (`#bb0734`) es el carmesí de marca, tomado del logotipo del autor para que
+  el `BrandMark` y el arte digan el mismo color. En claro llega a 6.6:1 sobre
+  blanco, así que vale también para texto pequeño y `ez-text` comparte su valor;
+  en oscuro ambos se aclaran a `#f83a6a` —mismo tono, subido hasta 4.5:1 sobre
+  `bg-secondary`— porque el carmesí puro se queda en 2.56:1 y desaparecería en el
+  footer. Los dos tokens siguen existiendo por si la distinción vuelve a hacer
+  falta. Antes eran `#ff375f` / `#d70036`, un rosa que no era el del logotipo.
 
 `ThemeToggle` pinta un `<div>` vacío del mismo tamaño hasta que monta; sin eso
 `next-themes` provoca un desajuste de hidratación.

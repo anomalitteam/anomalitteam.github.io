@@ -28,9 +28,14 @@
   --color-border: #d2d2d7;
   /* Iconos y estados apagados: `border` no llega al 3:1 mínimo de un gráfico. */
   --color-muted: #86868b;
-  --color-ez: #ff375f;
-  /* El rosa de marca a tamaño de texto: #ff375f sobre blanco se queda en 3.5:1. */
-  --color-ez-text: #d70036;
+  /*
+    El carmesí del logotipo, medido sobre el arte del autor: 6.6:1 sobre
+    bg-primary y 6.0:1 sobre bg-secondary, así que aquí sirve también a tamaño
+    de texto y `ez-text` no necesita separarse. Se conservan los dos tokens
+    porque en oscuro y para el siguiente producto la distinción sí puede volver.
+  */
+  --color-ez: #bb0734;
+  --color-ez-text: #bb0734;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
@@ -46,8 +51,13 @@
   --color-on-accent: #ffffff;
   --color-border: #48484a;
   --color-muted: #6e6e73;
-  --color-ez: #ff375f;
-  --color-ez-text: #ff375f;
+  /*
+    Mismo tono del logotipo (345°), aclarado hasta la luminosidad mínima que
+    aguanta 4.5:1 sobre bg-secondary (4.65:1; el carmesí puro se queda en 2.56:1
+    y sería ilegible en el footer). Es la misma maniobra que `accent`.
+  */
+  --color-ez: #f83a6a;
+  --color-ez-text: #f83a6a;
 }
 
 html {

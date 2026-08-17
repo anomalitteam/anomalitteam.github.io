@@ -25,7 +25,7 @@ export function StudioHero() {
             height={563}
             priority
             unoptimized
-            className="mx-auto mb-10 w-full max-w-[520px] rounded-2xl border border-border"
+            className="mx-auto mb-10 w-full max-w-[420px] rounded-2xl border border-border"
           />
           <h1 className="text-4xl font-extrabold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
             {t.studio.hero.tagline}

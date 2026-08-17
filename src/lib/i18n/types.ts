@@ -113,6 +113,13 @@ export interface StudioTranslations {
   hero: {
     tagline: string;
     description: string;
+    /**
+     * Logotipo del estudio. Es arte del autor sobre fondo gris opaco, así que se
+     * presenta enmarcado: recortarlo no sale limpio (el fondo tiene degradado y
+     * el glitch, bordes de ruido) y su lettering negro se perdería en oscuro.
+     */
+    logo: string;
+    logoAlt: string;
   };
   projects: Section;
   /** Badge de la tarjeta de un producto aún sin publicar. */

@@ -259,6 +259,19 @@ salto de maquetación.
 | `src/app/icon.png` · `src/app/favicon.ico` | **Arte del autor.** El `.ico` es su versión cuadrada de 256 px |
 | `src/app/eazyshot/opengraph-image.png` | Generada con `pnpm og` desde `scripts/og/eazyshot.tsx` |
 | `src/app/eazyshot/icon.png` | Copia del icono de la app |
+| `public/images/brand/logotipo.webp` | Recorte del original de la Open Graph, para el hero del escaparate |
+
+**El logotipo del hero va enmarcado a propósito.** Es el mismo arte de la Open
+Graph recortado a la caja del lettering (`extract` 74,143 1187×563, quitando el
+margen que solo servía para la tarjeta social), y se pinta con `rounded-2xl` y
+`border-border`. No está recortado contra transparencia porque no se puede
+hacer limpiamente: el fondo no es un gris plano —va de `#dedede` a `#e8e8e8`— y
+el glitch tiene bordes de ruido, así que un umbral deja halo y se come las
+astillas rojas. Y aunque saliera, el lettering es negro y desaparecería en
+oscuro: haría falta una segunda versión del arte con el texto en blanco, que hay
+que dibujar (invertir la imagen vuelve el carmesí en cian). Con el marco, el
+fondo gris se lee como parte de la obra en los dos temas. Es el elemento LCP de
+la home del estudio, de ahí su `priority`.
 
 **`opengraph-image` va junto al layout, no en `app/`.** Next asocia esa imagen al
 segmento que tiene layout, y desde que hay dos root layouts (uno por idioma)

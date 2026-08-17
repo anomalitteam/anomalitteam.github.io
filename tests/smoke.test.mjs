@@ -80,7 +80,7 @@ describe("idioma", () => {
   }
 
   test("el inglés está en el HTML servido, no solo tras hidratar", () => {
-    assert.match(html("en.html"), /Apps that do one thing well/);
+    assert.match(html("en.html"), /Apps that do things well/);
     assert.match(html("en/eazyshot.html"), /requires macOS 15\.2/i);
   });
 
@@ -156,6 +156,21 @@ describe("contenido", () => {
     }
   });
 
+  test("el logotipo del estudio se sirve en la home de los dos idiomas", () => {
+    for (const file of ["index.html", "en.html"]) {
+      const page = html(file);
+      const match = page.match(/src="(\/images\/brand\/[^"]+)"/);
+      assert.ok(match, `${file} no muestra el logotipo del estudio`);
+      assert.ok(
+        existsSync(join(OUT, match[1])),
+        `el logotipo apunta a ${match[1]}, que no existe`,
+      );
+      // Va con alt traducido: sin él, el nombre del estudio solo existiría en el
+      // navbar para quien use lector de pantalla.
+      assert.match(page, /alt="[^"]*Anomalit Team[^"]*"/, `${file} sin alt en el logotipo`);
+    }
+  });
+
   test("la 404 lleva la marca y una salida, no la de fábrica", () => {
     const page = html("404.html");
     assert.doesNotMatch(page, /This page could not be found/);
@@ -179,9 +194,15 @@ describe("contenido", () => {
 
 describe("peso", () => {
   test("ninguna imagen publicada pasa de 300 KB", () => {
-    const dir = join(OUT, "images/eazyshot");
-    for (const f of readdirSync(dir)) {
-      const kb = statSync(join(dir, f)).size / 1024;
+    // Recorre `images/` entero: hay una carpeta por producto y otra de marca, y
+    // limitarlo a una sola dejaba las demás sin vigilar.
+    const recorrer = (dir) =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+        e.isDirectory() ? recorrer(join(dir, e.name)) : [join(dir, e.name)],
+      );
+
+    for (const f of recorrer(join(OUT, "images"))) {
+      const kb = statSync(f).size / 1024;
       assert.ok(kb < 300, `${f} pesa ${Math.round(kb)} KB`);
     }
   });

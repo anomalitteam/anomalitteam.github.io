@@ -24,9 +24,11 @@ const es: Translations = {
         "Estudio independiente de aplicaciones para el ecosistema de Apple. Herramientas cuidadas, sin suscripciones y con pago único.",
     },
     hero: {
-      tagline: "Apps que hacen bien una cosa",
+      tagline: "Apps que hacen bien las cosas",
       description:
         "Somos un estudio independiente que crea herramientas para el ecosistema de Apple. Cuidadas hasta el detalle, sin suscripciones y con pago único.",
+      logo: "/images/brand/logotipo.webp",
+      logoAlt: "Logotipo de Anomalit Team",
     },
     projects: {
       label: "Proyectos",
@@ -370,9 +372,11 @@ const en: Translations = {
         "Independent studio building apps for the Apple ecosystem. Carefully crafted tools, no subscriptions, one-time payment.",
     },
     hero: {
-      tagline: "Apps that do one thing well",
+      tagline: "Apps that do things well",
       description:
         "We're an independent studio building tools for the Apple ecosystem. Crafted down to the detail, no subscriptions, one-time payment.",
+      logo: "/images/brand/logotipo.webp",
+      logoAlt: "Anomalit Team logo",
     },
     projects: {
       label: "Projects",

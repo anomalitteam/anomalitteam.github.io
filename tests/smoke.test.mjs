@@ -294,6 +294,29 @@ describe("accesibilidad", () => {
     }
   });
 
+  test("el conmutador de idioma se anuncia en el idioma de la página", () => {
+    // La etiqueta iba en el idioma de destino: una página `lang="es"` ofrecía
+    // "Switch to English", que un lector de pantalla en español pronuncia con
+    // fonética española. Quien necesita la etiqueta es quien aún no ha cambiado
+    // de idioma, así que va en el idioma que está leyendo.
+    for (const [file, propia, ajena] of [
+      ["eazyshot.html", "Cambiar a inglés", "Switch to English"],
+      ["en/eazyshot.html", "Switch to Spanish", "Cambiar a español"],
+    ]) {
+      const page = html(file);
+      assert.match(
+        page,
+        new RegExp(`aria-label="${propia}"`),
+        `${file} no ofrece el cambio de idioma en su propio idioma`,
+      );
+      assert.doesNotMatch(
+        page,
+        new RegExp(`aria-label="${ajena}"`),
+        `${file} anuncia el conmutador en el idioma de destino`,
+      );
+    }
+  });
+
   test("el CSS publicado atiende prefers-reduced-motion", () => {
     // El sitio anima el scroll y revela cada tarjeta al entrar en pantalla. Quien
     // haya pedido menos movimiento en el sistema debe recibir el sitio quieto.

@@ -9,6 +9,12 @@ export interface NavLinks {
   pricing: string;
   faq: string;
   download: string;
+  /**
+   * Etiqueta accesible del conmutador de idioma, **en el idioma de la página**:
+   * quien la necesita todavía no ha cambiado. Por eso vive aquí, en cada rama, y
+   * no como un condicional dentro del componente.
+   */
+  switchLanguage: string;
 }
 
 export interface Meta {

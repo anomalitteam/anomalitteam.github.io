@@ -101,9 +101,18 @@ existe**, que los CTA lleven la insignia de Apple con enlace real, que el FAQ
 exporte sus ocho respuestas, que no reaparezca la palabra "blur" ni un nombre
 antiguo del estudio, y que ninguna imagen pase de 300 KB.
 
-Cada caso nació de un fallo real de agosto de 2026, y todos se detectaron a mano
-—uno de ellos ya en producción—. **Al arreglar algo que solo se ve en el HTML
-final, añade el caso aquí**: es el único sitio del proyecto donde queda fijado.
+Hay además un bloque `accesibilidad`, de septiembre de 2026: que las dos
+variantes de la insignia lleven `alt` (la oculta por `dark:hidden` sale del árbol
+de accesibilidad, así que si solo una lo tiene, en ese tema el CTA es un enlace
+sin texto), que la tabla comparativa declare `scope` y no deje celdas cuyo único
+contenido sea un icono, que el `alt` de las capturas de *Cómo funciona* no repita
+el encabezado que ya está al lado, y que el CSS publicado contemple
+`prefers-reduced-motion`. En `contenido` vive también el caso de la tarjeta de
+precio, que llegó a producción diciendo "3 3 días de prueba…".
+
+Cada caso nació de un fallo real, y todos se detectaron a mano —dos de ellos ya
+en producción—. **Al arreglar algo que solo se ve en el HTML final, añade el caso
+aquí**: es el único sitio del proyecto donde queda fijado.
 
 `deploy.yml` ejecuta `typecheck`, `lint`, `build` y `test` antes de publicar, así
 que un fallo detiene el despliegue en lugar de salir a producción.
@@ -146,7 +155,7 @@ src/
 │                   Accordion, SectionHeading, ScrollReveal, ThemeToggle,
 │                   LanguageToggle
 └── lib/
-    ├── constants.ts      SITE — el estudio (nombre, url, trialDays)
+    ├── constants.ts      SITE — el estudio (nombre, url, trialDays, año ©)
     ├── products.ts       PRODUCTS / PRODUCT_LIST — un registro por producto
     └── i18n/             context.tsx · routes.ts · translations.ts · types.ts
 ```
@@ -162,6 +171,12 @@ un `product`.
 Las páginas legales son server components que exportan `metadata` y delegan el
 contenido en un `*Content.tsx` cliente. Es el único modo de tener título propio
 en una página que necesita `useT()`.
+
+**El año del `©` sale de `SITE.copyrightYear`, no de `new Date()`.** `Footer` es
+un componente cliente de un sitio exportado: el servidor escribía el año de la
+construcción y el navegador recalculaba el suyo, así que el HTML publicado se
+quedaba con un año viejo hasta la siguiente construcción y al cambiar de año
+había además desajuste al hidratar. Se sube a mano, una línea al año.
 
 ### Todo el contenido vive en `lib/i18n/translations.ts`
 
@@ -180,6 +195,13 @@ Un detalle que no es evidente: los iconos y las imágenes también salen de
 `iconMap`. Un icono mal escrito no falla en compilación — la tarjeta se queda
 sin icono.
 
+**Hay un único marcador de interpolación en todo el archivo: `{days}`, en
+`pricing.trial`**, que `Pricing.tsx` sustituye con `SITE.trialDays`. No es un
+sistema de plantillas: existe porque el número vivía a la vez en la cadena y en el
+componente, y la tarjeta acabó publicando "3 3 días de prueba…" en los dos
+idiomas. La alternativa —partir la frase— no vale: en inglés es "3-day", no
+"3 day". El resto de cifras del copy (`priceNote`, el FAQ) siguen escritas a mano.
+
 ### Los CTA pasan todos por `DownloadButton`
 
 En `Hero` y `Pricing` el CTA es `ui/AppStoreBadge.tsx`: la **insignia oficial**
@@ -190,6 +212,11 @@ sobre el fondo oscuro; se alternan por CSS (`dark:hidden`), no por JavaScript,
 para que no parpadeen al hidratar. Si un producto no tiene `appStoreUrl`, la
 insignia cae al botón de "Próximamente": la marca de Apple solo puede acompañar
 a un enlace real a la tienda.
+
+**Las dos variantes llevan el mismo `alt`, y eso no lo duplica**: `dark:hidden` es
+`display: none`, así que la oculta no está en el árbol de accesibilidad. Solo lo
+tenía la negra, de modo que en tema oscuro el CTA principal de la landing se
+anunciaba como un enlace sin texto.
 
 `Navbar` conserva `ui/DownloadButton.tsx` —texto corto, que es lo que cabe en la
 barra—, y ambos reciben el producto por props. El destino de cada uno vive en un solo sitio: `PRODUCTS[id].appStoreUrl`
@@ -393,6 +420,23 @@ Tres pares de tokens que **no son intercambiables**:
 `ThemeToggle` pinta un `<div>` vacío del mismo tamaño hasta que monta; sin eso
 `next-themes` provoca un desajuste de hidratación.
 
+### El movimiento reducido se atiende en dos sitios, no en uno
+
+El sitio anima bastante: scroll suave a las anclas, una revelación por cada
+tarjeta al entrar en pantalla y el despliegue del FAQ. Respetar
+`prefers-reduced-motion` necesita dos mecanismos porque son dos tecnologías:
+
+- **CSS** (`globals.css`): el `scroll-behavior: smooth` va dentro de
+  `@media (prefers-reduced-motion: no-preference)` y hay un bloque `reduce` que
+  recorta animaciones y transiciones. **Por eso `<html>` ya no lleva la clase
+  `scroll-smooth`**: esa utilidad aplica el desplazamiento suave siempre, sin
+  consultar la preferencia, y anulaba la media query.
+- **framer-motion** anima con estilos en línea, así que el CSS no le llega:
+  `StudioChrome` y `ProductChrome` lo envuelven todo en
+  `<MotionConfig reducedMotion="user">`. Eso desactiva transform y layout, que es
+  lo que hace `ScrollReveal`, pero **no `height`** — el `Accordion` consulta
+  `useReducedMotion()` por su cuenta y pone la duración a 0.
+
 ### `output: "export"` condiciona tres cosas
 
 1. **`next/image` necesita `unoptimized`** en cada imagen (no hay optimizador en
@@ -435,9 +479,25 @@ Observaciones, no tareas asignadas. Confirmar antes de actuar.
 - La **Open Graph es la misma en los dos idiomas** (la del arte del autor, y la
   generada de EazyShot en español). Es el siguiente detalle de i18n si importa la
   tarjeta al compartir desde `/en`.
-- **Los precios de ES y EN no son equivalentes**: `$69 MXN` frente a `$2.99 USD`
-  (≈ $50 MXN), y la referencia de la competencia igual (`~$499 MXN` vs `~$29
-  USD`). Puede ser precio regional deliberado del App Store; sin confirmar.
+- **El precio de la web es orientativo y así debe anunciarse.** La referencia es
+  `~$49 MXN` en español y `~$1.99 USD` en inglés; la cifra real la fija Apple al
+  convertir a la moneda de cada país, así que no coincide en todos y la página no
+  puede prometer una. Las dos ramas no son equivalentes entre sí ($1.99 USD ≈ $36
+  MXN) porque cada una es la conversión de Apple para su mercado, no una
+  traducción de la otra.
+
+  De ahí tres reglas: **todo importe lleva `~` delante**, la tarjeta muestra
+  `pricing.regional` explicando de qué depende, y la respuesta del FAQ remite al
+  App Store para el importe exacto. `tests/smoke.test.mjs` lo comprueba sin
+  fijar la cifra: recorre los `$… MXN`/`$… USD` del HTML y exige el `~`, más el
+  aviso de que varía por país. La fila de la competencia (`~$499 MXN`, `~$29
+  USD`) ya venía así.
+
+  El importe aparece en cuatro sitios de cada rama de `translations.ts` —el
+  `priceNote` del hero, la fila de la comparativa, la tarjeta y la respuesta del
+  FAQ—, así que un cambio son ocho ediciones. No hay constante que lo centralice:
+  siempre llega dentro de una frase traducida. Antes de septiembre de 2026 era
+  `$69 MXN` / `$2.99 USD`, sin marca de aproximado.
 - Las imágenes se agrupan por producto (`public/images/<id>/`) para que la
   segunda app no colisione con la primera.
 - Las variantes `secondary` y `ghost` de `Button` están definidas y no se usan

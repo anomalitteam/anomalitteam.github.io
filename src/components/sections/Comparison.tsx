@@ -5,21 +5,43 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useT } from "@/lib/i18n/context";
 import { Check, Minus, Zap } from "lucide-react";
 
-function renderCell(value: string | boolean) {
-  if (value === true) {
-    return <Check className="mx-auto h-4 w-4 text-text-secondary" />;
+/**
+ * Celda de sí/no.
+ *
+ * El icono es decorativo —`aria-hidden`— y el valor va en un `sr-only` invisible
+ * que lo precede: una tabla de iconos sin texto se anuncia como once filas de
+ * celdas vacías, y es la sección que más información condensa de la landing.
+ */
+function Cell({
+  value,
+  cells,
+  accent = false,
+}: {
+  value: string | boolean;
+  cells: { yes: string; no: string };
+  accent?: boolean;
+}) {
+  if (typeof value === "string") {
+    return (
+      <span className={accent ? "text-accent font-medium text-xs" : "text-xs text-text-secondary"}>
+        {value}
+      </span>
+    );
   }
-  if (value === false) {
-    return <Minus className="mx-auto h-4 w-4 text-muted" />;
-  }
-  return <span className="text-xs text-text-secondary">{value}</span>;
-}
 
-function renderEazyCell(value: string | boolean) {
-  if (value === true) {
-    return <Check className="mx-auto h-4 w-4 text-accent" />;
-  }
-  return <span className="text-accent font-medium text-xs">{value}</span>;
+  const Icon = value ? Check : Minus;
+  const color = value
+    ? accent
+      ? "text-accent"
+      : "text-text-secondary"
+    : "text-muted";
+
+  return (
+    <>
+      <span className="sr-only">{value ? cells.yes : cells.no}</span>
+      <Icon aria-hidden="true" className={`mx-auto h-4 w-4 ${color}`} />
+    </>
+  );
 }
 
 export function Comparison() {
@@ -38,18 +60,25 @@ export function Comparison() {
         <ScrollReveal className="mt-16">
           <div className="overflow-x-auto rounded-2xl border border-border bg-bg-primary">
             <table className="w-full min-w-[640px]">
+              <caption className="sr-only">{section.title}</caption>
               <thead>
                 <tr className="border-b border-border text-sm font-semibold">
-                  <th className="px-6 py-4 text-left text-text-primary">
+                  <th scope="col" className="px-6 py-4 text-left text-text-primary">
                     {section.headers.functionality}
                   </th>
-                  <th className="px-6 py-4 text-center text-text-secondary w-[100px]">
+                  <th
+                    scope="col"
+                    className="px-6 py-4 text-center text-text-secondary w-[100px]"
+                  >
                     {section.headers.macOS}
                   </th>
-                  <th className="px-6 py-4 text-center text-accent w-[120px]">
+                  <th scope="col" className="px-6 py-4 text-center text-accent w-[120px]">
                     {section.headers.eazyShot}
                   </th>
-                  <th className="px-6 py-4 text-center text-text-secondary w-[120px]">
+                  <th
+                    scope="col"
+                    className="px-6 py-4 text-center text-text-secondary w-[120px]"
+                  >
                     {section.headers.competition}
                   </th>
                 </tr>
@@ -62,22 +91,34 @@ export function Comparison() {
                       row.highlight ? "bg-accent/5" : ""
                     }`}
                   >
-                    <td className="px-6 py-3.5 text-text-primary">
+                    {/*
+                      La primera columna es el encabezado de su fila: con
+                      `scope="row"` un lector anuncia "Modo rápido al
+                      portapapeles, EazyShot, Sí" en lugar de un "Sí" suelto.
+                      Va en `font-normal` para que se siga viendo como celda.
+                    */}
+                    <th
+                      scope="row"
+                      className="px-6 py-3.5 text-left font-normal text-text-primary"
+                    >
                       <span className="flex items-center gap-2">
                         {row.highlight && (
-                          <Zap className="h-3.5 w-3.5 text-ez flex-shrink-0" />
+                          <Zap
+                            aria-hidden="true"
+                            className="h-3.5 w-3.5 text-ez flex-shrink-0"
+                          />
                         )}
                         {row.feature}
                       </span>
+                    </th>
+                    <td className="px-6 py-3.5 text-center">
+                      <Cell value={row.native} cells={section.cells} />
                     </td>
                     <td className="px-6 py-3.5 text-center">
-                      {renderCell(row.native)}
+                      <Cell value={row.eazyshot} cells={section.cells} accent />
                     </td>
                     <td className="px-6 py-3.5 text-center">
-                      {renderEazyCell(row.eazyshot)}
-                    </td>
-                    <td className="px-6 py-3.5 text-center">
-                      {renderCell(row.competition)}
+                      <Cell value={row.competition} cells={section.cells} />
                     </td>
                   </tr>
                 ))}

@@ -60,8 +60,30 @@
   --color-ez-text: #f83a6a;
 }
 
-html {
-  scroll-behavior: smooth;
+/*
+  El scroll suave y las revelaciones al entrar en pantalla son adorno. Quien haya
+  pedido menos movimiento en el sistema recibe el sitio quieto: el salto a un
+  ancla es instantáneo y las transiciones se reducen a un instante en lugar de
+  anularse, que es lo que evita que un estado a medio animar se quede congelado.
+
+  Va aquí y no en una clase de Tailwind sobre `<html>`: `scroll-smooth` aplicaría
+  el desplazamiento suave siempre, sin consultar la preferencia.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

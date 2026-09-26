@@ -38,7 +38,7 @@ export default function SpanishLayout({
     <html
       lang="es"
       suppressHydrationWarning
-      className={`${inter.variable} scroll-smooth`}
+      className={inter.variable}
     >
       <body className="min-h-screen bg-bg-primary text-text-primary antialiased">
         <ThemeProvider

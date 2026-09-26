@@ -13,6 +13,10 @@ import { isPublished, type Product } from "@/lib/products";
  * desaparece sobre el fondo oscuro del sitio: se cambia por CSS según el tema,
  * no por JavaScript, para que no parpadee al hidratar.
  *
+ * Las dos variantes llevan el mismo `alt`, y no se duplica: `dark:hidden` es
+ * `display: none`, así que la oculta no está en el árbol de accesibilidad. Solo
+ * una lo tenía y en oscuro este enlace —el CTA principal— se anunciaba sin texto.
+ *
  * Un producto sin `appStoreUrl` cae al botón de "Próximamente": la insignia de
  * Apple solo puede acompañar a un enlace real a la tienda.
  */
@@ -58,7 +62,7 @@ export function AppStoreBadge({
       <span className="hidden dark:inline-block">
         <Image
           src={`/badges/mac-app-store-${language}-white.svg`}
-          alt=""
+          alt={alt}
           {...size}
           unoptimized
           className="h-11 w-auto"

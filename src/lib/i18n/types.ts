@@ -43,6 +43,12 @@ export interface StepItem {
   title: string;
   description: string;
   image: string;
+  /**
+   * Descripción de la captura para quien no la ve. No repite `title`: el
+   * encabezado ya está al lado en el mismo bloque, así que anunciarlo dos veces
+   * no aporta nada y deja la imagen sin describir.
+   */
+  imageAlt: string;
 }
 
 export interface ComparisonRow {
@@ -64,7 +70,13 @@ export interface PricingTranslations {
   description: string;
   badge: string;
   planName: string;
+  /**
+   * Importe de referencia, siempre con `~` delante: Apple convierte el precio por
+   * país y no cobra la misma cifra en todos. Ver `regional`.
+   */
   price: string;
+  /** Aviso de que el importe final lo fija el App Store según el país. */
+  regional: string;
   trial: string;
   includesTitle: string;
   features: string[];
@@ -143,6 +155,11 @@ export interface Translations {
   howItWorks: Section & { items: StepItem[] };
   comparison: Section & {
     headers: { functionality: string; macOS: string; eazyShot: string; competition: string };
+    /**
+     * Texto equivalente de las celdas de sí/no, que en pantalla son solo un
+     * icono. Sin él, un lector anuncia la tabla entera como celdas vacías.
+     */
+    cells: { yes: string; no: string };
     rows: ComparisonRow[];
   };
   pricing: PricingTranslations;

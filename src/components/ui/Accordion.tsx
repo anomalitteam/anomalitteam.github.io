@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 type AccordionProps = {
   question: string;
@@ -13,6 +13,10 @@ export function Accordion({ question, answer }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(false);
   const questionId = useId();
   const answerId = useId();
+  // `MotionConfig reducedMotion="user"` solo desactiva transform y layout, y esto
+  // anima `height`: hay que consultar la preferencia a mano para que el panel
+  // aparezca de golpe en lugar de desplegarse.
+  const reducedMotion = useReducedMotion();
 
   return (
     <div className="border-b border-border last:border-b-0">
@@ -46,7 +50,7 @@ export function Accordion({ question, answer }: AccordionProps) {
         aria-hidden={!isOpen}
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
+        transition={{ duration: reducedMotion ? 0 : 0.25, ease: "easeInOut" }}
         className="overflow-hidden"
       >
         <p className="pb-5 text-text-secondary leading-relaxed">{answer}</p>

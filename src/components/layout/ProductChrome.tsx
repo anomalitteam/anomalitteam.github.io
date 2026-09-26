@@ -1,5 +1,7 @@
 "use client";
 
+import { MotionConfig } from "framer-motion";
+
 import { Navbar, type NavLink } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { EazyShotMark } from "@/components/ui/BrandMark";
@@ -35,8 +37,10 @@ export function ProductChrome({ children }: { children: React.ReactNode }) {
     { label: t.footer.privacy, href: `${base}/privacy` },
   ];
 
+  // Igual que en `StudioChrome`: framer-motion no ve la media query del CSS y
+  // necesita que se le diga que respete la preferencia del sistema.
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Navbar
         homeHref={base}
         brand={<EazyShotMark />}
@@ -45,6 +49,6 @@ export function ProductChrome({ children }: { children: React.ReactNode }) {
       />
       <main>{children}</main>
       <Footer brand={<EazyShotMark size={28} />} links={footerLinks} />
-    </>
+    </MotionConfig>
   );
 }

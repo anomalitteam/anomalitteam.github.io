@@ -11,6 +11,9 @@ import { Check } from "lucide-react";
 export function Pricing() {
   const { t } = useT();
   const section = t.pricing;
+  // El número de días sale de `SITE`, no de la cadena: así no puede volver a
+  // duplicarse. La frase se pinta una sola vez, justo debajo del precio.
+  const trial = section.trial.replace("{days}", String(SITE.trialDays));
 
   return (
     <section id="pricing" className="py-20 sm:py-28">
@@ -36,16 +39,20 @@ export function Pricing() {
                   {section.price}
                 </span>
               </div>
-              <p className="mt-1 text-sm text-text-secondary">
-                {SITE.trialDays} {section.trial}
-              </p>
+              <p className="mt-1 text-sm text-text-secondary">{trial}</p>
 
               <div className="mt-8 flex justify-center">
                 <AppStoreBadge product={PRODUCTS.eazyshot} />
               </div>
 
-              <p className="mt-3 text-xs text-text-secondary">
-                {section.trial}
+              {/*
+                El importe grande lleva `~` porque Apple lo convierte por país y
+                no cobra la misma cifra en todos. Esta línea dice de qué depende;
+                sin ella, la tarjeta prometería un precio que la tienda no tiene
+                por qué cumplir fuera del país de referencia.
+              */}
+              <p className="mt-4 text-xs leading-relaxed text-text-secondary">
+                {section.regional}
               </p>
             </div>
 

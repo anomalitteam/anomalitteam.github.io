@@ -1,5 +1,7 @@
 "use client";
 
+import { MotionConfig } from "framer-motion";
+
 import { Navbar, type NavLink } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { StudioMark } from "@/components/ui/BrandMark";
@@ -26,8 +28,11 @@ export function StudioChrome({ children }: { children: React.ReactNode }) {
     },
   ];
 
+  // framer-motion anima con estilos en línea, así que la media query de
+  // `globals.css` no le llega: `reducedMotion="user"` es lo que le hace mirar la
+  // preferencia del sistema y dejar quietas las revelaciones al hacer scroll.
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Navbar
         homeHref={localePath(language)}
         brand={<StudioMark />}
@@ -35,6 +40,6 @@ export function StudioChrome({ children }: { children: React.ReactNode }) {
       />
       <main>{children}</main>
       <Footer brand={<StudioMark />} links={links} />
-    </>
+    </MotionConfig>
   );
 }

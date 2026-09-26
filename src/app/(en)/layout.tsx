@@ -36,7 +36,7 @@ export default function EnglishLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} scroll-smooth`}
+      className={inter.variable}
     >
       <body className="min-h-screen bg-bg-primary text-text-primary antialiased">
         <ThemeProvider

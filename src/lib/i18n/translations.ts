@@ -54,7 +54,7 @@ const es: Translations = {
     tagline: "Capturas de pantalla profesionales en segundos",
     description:
       "EazyShot es la herramienta de captura de pantalla que todo usuario de Mac necesita. Anota, censura, numera y comparte capturas al instante desde la barra de menú.",
-    priceNote: "Pago único · $69 MXN · 3 días de prueba",
+    priceNote: "Pago único · ~$49 MXN · 3 días de prueba",
     image: "/images/eazyshot/hero.webp",
     imageAlt: "EazyShot editando una captura en un Mac",
   },
@@ -120,6 +120,8 @@ const es: Translations = {
         description:
           "Haz clic en el icono de EazyShot en tu barra de menú o usa un atajo de teclado personalizado. La app está siempre a un clic de distancia.",
         image: "/images/eazyshot/funcion-1.jpg",
+        imageAlt:
+          "El menú de EazyShot desplegado desde la barra de menús de macOS, con los cinco modos de captura, el aviso de días restantes de prueba y los accesos a ajustes y salir.",
       },
       {
         step: 2,
@@ -127,6 +129,8 @@ const es: Translations = {
         description:
           "Arrastra para seleccionar una región o captura la pantalla completa. El overlay cubre todos tus monitores.",
         image: "/images/eazyshot/funcion-2.jpg",
+        imageAlt:
+          "El mismo menú con el cursor sobre «Capture Region», resaltado en azul, a punto de iniciar la selección.",
       },
       {
         step: 3,
@@ -134,6 +138,8 @@ const es: Translations = {
         description:
           "Añade rectángulos, flechas, texto, un bloque de censura que tapa de verdad lo sensible, o numeración para guías paso a paso.",
         image: "/images/eazyshot/funcion-3.jpg",
+        imageAlt:
+          "Una región del escritorio seleccionada y anotada: un recuadro rojo con cuatro flechas apuntando a un texto, un bloque negro opaco tapando otra zona, y la barra de herramientas flotando sobre la selección.",
       },
       {
         step: 4,
@@ -141,6 +147,8 @@ const es: Translations = {
         description:
           "Copia al portapapeles con Cmd+C o guarda como PNG en tu carpeta preferida. En modo EZ, va directo al portapapeles.",
         image: "/images/eazyshot/funcion-4.jpg",
+        imageAlt:
+          "Primer plano de la barra de herramientas del editor —rectángulo, flecha, línea, texto, censura, deshacer, color, copiar y guardar— con el cursor sobre el botón de guardar.",
       },
     ],
   },
@@ -155,6 +163,7 @@ const es: Translations = {
       eazyShot: "EazyShot",
       competition: "Competencia",
     },
+    cells: { yes: "Sí", no: "No" },
     rows: [
       { feature: "Captura de región", native: true, eazyshot: true, competition: true },
       { feature: "Captura de pantalla completa", native: true, eazyshot: true, competition: true },
@@ -175,7 +184,7 @@ const es: Translations = {
       {
         feature: "Precio",
         native: "Gratis (incluido)",
-        eazyshot: "$69 MXN",
+        eazyshot: "~$49 MXN",
         competition: "~$499 MXN",
       },
     ],
@@ -187,8 +196,13 @@ const es: Translations = {
       "Sin suscripciones. Sin pagos recurrentes. Lo compras una vez y es tuyo.",
     badge: "Pago único",
     planName: "EazyShot Pro",
-    price: "$69 MXN",
-    trial: "3 días de prueba gratuita con todas las funciones",
+    price: "~$49 MXN",
+    regional:
+      "Precio orientativo: el importe exacto lo fija el App Store según el país desde el que compres.",
+    // `{days}` lo sustituye `Pricing` con `SITE.trialDays`: el número vive en un
+    // solo sitio. Antes la cadena lo traía escrito y el componente le añadía otro
+    // delante — "3 3 días de prueba…".
+    trial: "{days} días de prueba gratuita con todas las funciones",
     includesTitle: "Todo incluido",
     features: [
       "Todos los modos de captura",
@@ -216,7 +230,7 @@ const es: Translations = {
       {
         question: "¿Cuánto cuesta EazyShot?",
         answer:
-          "EazyShot Pro cuesta $69 MXN. Es un pago único, sin suscripciones. Lo compras una vez y es tuyo para siempre, con todas las actualizaciones incluidas.",
+          "~$49 MXN. Apple convierte el precio a la moneda de cada país, así que el importe exacto es el que te muestre el App Store al comprar. Sea cual sea, es un pago único, sin suscripciones: lo compras una vez y es tuyo para siempre, con todas las actualizaciones incluidas.",
       },
       {
         question: "¿Hay versión de prueba?",
@@ -402,7 +416,7 @@ const en: Translations = {
     tagline: "Professional Screenshots in Seconds",
     description:
       "EazyShot is the screenshot tool every Mac user needs. Annotate, censor, number, and share screenshots instantly from the menu bar.",
-    priceNote: "One-time · $2.99 USD · 3-day trial",
+    priceNote: "One-time · ~$1.99 USD · 3-day trial",
     image: "/images/eazyshot/hero.webp",
     imageAlt: "EazyShot editing a screenshot on a Mac",
   },
@@ -468,6 +482,8 @@ const en: Translations = {
         description:
           "Click the EazyShot icon in your menu bar or use a custom keyboard shortcut. The app is always one click away.",
         image: "/images/eazyshot/funcion-1.jpg",
+        imageAlt:
+          "The EazyShot menu pulled down from the macOS menu bar, showing the five capture modes, the days left in the trial, and the settings and quit items.",
       },
       {
         step: 2,
@@ -475,6 +491,8 @@ const en: Translations = {
         description:
           "Drag to select a region or capture the full screen. The overlay covers all your monitors.",
         image: "/images/eazyshot/funcion-2.jpg",
+        imageAlt:
+          "The same menu with the pointer over “Capture Region”, highlighted in blue, about to start the selection.",
       },
       {
         step: 3,
@@ -482,6 +500,8 @@ const en: Translations = {
         description:
           "Add rectangles, arrows, text, a redaction block that truly covers sensitive info, or numbering for step-by-step guides.",
         image: "/images/eazyshot/funcion-3.jpg",
+        imageAlt:
+          "A selected region of the desktop, annotated: a red box with four arrows pointing at a caption, an opaque black block covering another area, and the toolbar floating above the selection.",
       },
       {
         step: 4,
@@ -489,6 +509,8 @@ const en: Translations = {
         description:
           "Copy to clipboard with Cmd+C or save as PNG in your preferred folder. In EZ mode, it goes directly to clipboard.",
         image: "/images/eazyshot/funcion-4.jpg",
+        imageAlt:
+          "Close-up of the editor toolbar —rectangle, arrow, line, text, redaction, undo, color, copy and save— with the pointer over the save button.",
       },
     ],
   },
@@ -502,6 +524,7 @@ const en: Translations = {
       eazyShot: "EazyShot",
       competition: "Competition",
     },
+    cells: { yes: "Yes", no: "No" },
     rows: [
       { feature: "Region capture", native: true, eazyshot: true, competition: true },
       { feature: "Full screen capture", native: true, eazyshot: true, competition: true },
@@ -522,7 +545,7 @@ const en: Translations = {
       {
         feature: "Price",
         native: "Free (included)",
-        eazyshot: "$2.99 USD",
+        eazyshot: "~$1.99 USD",
         competition: "~$29 USD",
       },
     ],
@@ -534,8 +557,11 @@ const en: Translations = {
       "No subscriptions. No recurring payments. Buy it once and it's yours.",
     badge: "One-Time",
     planName: "EazyShot Pro",
-    price: "$2.99 USD",
-    trial: "3-day free trial with all features",
+    price: "~$1.99 USD",
+    regional:
+      "Indicative price: the exact amount is set by the App Store for the country you buy from.",
+    // Ver la nota de la rama española: el número lo pone `SITE.trialDays`.
+    trial: "{days}-day free trial with all features",
     includesTitle: "Everything Included",
     features: [
       "All capture modes",
@@ -563,7 +589,7 @@ const en: Translations = {
       {
         question: "How much does EazyShot cost?",
         answer:
-          "EazyShot Pro costs $2.99 USD. It's a one-time payment, no subscriptions. Buy it once and it's yours forever, with all updates included.",
+          "~$1.99 USD. Apple converts the price into each country's currency, so the exact amount is whatever the App Store shows you at checkout. Either way it's a one-time payment, no subscriptions: buy it once and it's yours forever, with all updates included.",
       },
       {
         question: "Is there a trial version?",

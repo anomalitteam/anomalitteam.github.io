@@ -46,7 +46,7 @@ export function HowItWorks() {
                   <div className="flex-1 flex justify-center">
                     <Image
                       src={step.image}
-                      alt={step.title}
+                      alt={step.imageAlt}
                       width={560}
                       height={350}
                       unoptimized

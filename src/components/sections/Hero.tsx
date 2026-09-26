@@ -41,7 +41,6 @@ export function Hero() {
             alt={t.hero.imageAlt}
             width={2000}
             height={1300}
-            sizes="(max-width: 1024px) 100vw, 1024px"
             priority
             unoptimized
             className="h-auto w-full"

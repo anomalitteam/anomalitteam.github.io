@@ -34,7 +34,7 @@ export function Footer({ brand, links }: FooterProps) {
 
         <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} {SITE.name}.
+            &copy; {SITE.copyrightYear} {SITE.name}.
           </p>
           <p className="text-xs text-text-secondary">{t.footer.oneTime}</p>
         </div>

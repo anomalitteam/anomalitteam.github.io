@@ -184,11 +184,127 @@ describe("contenido", () => {
     }
   });
 
+  test("la tarjeta de precio no repite el número ni el texto de la prueba", () => {
+    // La tarjeta pintaba `{SITE.trialDays} {section.trial}` sobre una cadena que
+    // ya traía el número —"3 3 días de prueba…"— y justo debajo repetía la misma
+    // frase completa. Salió así a producción en los dos idiomas.
+    for (const [file, trial] of [
+      ["eazyshot.html", "días de prueba gratuita con todas las funciones"],
+      ["en/eazyshot.html", "day free trial with all features"],
+    ]) {
+      // React separa los nodos de texto con comentarios; sin quitarlos, el
+      // número duplicado no se ve como "3 3".
+      const texto = html(file).replace(/<!-- -->/g, "");
+      assert.doesNotMatch(
+        texto,
+        /(\d+) \1[- ](día|day)/,
+        `${file} repite el número de días de prueba`,
+      );
+      // Una vez en la tarjeta de precio y otra en la respuesta del FAQ.
+      const veces = texto.split(trial).length - 1;
+      assert.equal(veces, 2, `${file} dice "${trial}" ${veces} veces, se esperaban 2`);
+    }
+  });
+
+  test("ningún importe se anuncia como precio cerrado", () => {
+    // Apple convierte el precio por país y no da la misma cifra en todos, así que
+    // la página no puede prometer una: todo importe va marcado como aproximado y
+    // la landing dice de qué depende. La comprobación no fija la cifra —cambiará—
+    // sino la forma de presentarla.
+    for (const [file, pista] of [
+      ["eazyshot.html", /país/],
+      ["en/eazyshot.html", /country/],
+    ]) {
+      const page = html(file).replace(/<!-- -->/g, "");
+      for (const importe of page.match(/.\$\d[\d.,]*\s?(MXN|USD)/g) ?? []) {
+        assert.ok(
+          importe.startsWith("~"),
+          `${file} anuncia "${importe.slice(1)}" como precio cerrado`,
+        );
+      }
+      assert.match(page, pista, `${file} no avisa de que el precio depende del país`);
+    }
+  });
+
   test("el nombre del estudio es el actual en todas las páginas", () => {
     for (const file of Object.keys(PAGES)) {
       const page = html(file);
       assert.doesNotMatch(page, /Fairy Dream|anomalitfuture|anomalyteam/i, `${file} arrastra un nombre antiguo`);
     }
+  });
+});
+
+describe("accesibilidad", () => {
+  /** Los `<img …>` de una página, uno por elemento. */
+  const imagenes = (page) => page.match(/<img\b[^>]*>/g) ?? [];
+
+  test("la insignia del App Store lleva texto alternativo en los dos temas", () => {
+    // Las dos variantes de color se alternan con `dark:hidden`, que es
+    // `display: none`: la oculta sale del árbol de accesibilidad. Si solo una
+    // lleva `alt`, en el tema contrario el CTA principal es un enlace sin texto.
+    for (const [file, lang] of [
+      ["eazyshot.html", "es"],
+      ["en/eazyshot.html", "en"],
+    ]) {
+      const page = html(file);
+      for (const color of ["black", "white"]) {
+        const badge = `/badges/mac-app-store-${lang}-${color}.svg`;
+        const imgs = imagenes(page).filter((img) => img.includes(badge));
+        assert.ok(imgs.length > 0, `${file} no pinta ${badge}`);
+        for (const img of imgs) {
+          assert.match(img, /alt="[^"]+"/, `${file}: la insignia ${color} tiene alt vacío`);
+        }
+      }
+    }
+  });
+
+  test("la tabla comparativa no deja celdas sin texto", () => {
+    // Las columnas de sí/no son iconos. Sin texto equivalente, un lector de
+    // pantalla anuncia once filas de celdas vacías: la sección que más
+    // información condensa queda ilegible.
+    for (const file of ["eazyshot.html", "en/eazyshot.html"]) {
+      const page = html(file);
+      const tabla = page.slice(page.indexOf("<table"), page.indexOf("</table>"));
+      assert.ok(tabla.length > 0, `${file} no tiene tabla comparativa`);
+      assert.match(tabla, /<th[^>]*scope="col"/, `${file}: los <th> no declaran scope`);
+      assert.doesNotMatch(
+        tabla,
+        /<td[^>]*>\s*<svg/,
+        `${file}: hay celdas cuyo único contenido es un icono`,
+      );
+    }
+  });
+
+  test("las capturas de Cómo funciona se describen, no repiten el título del paso", () => {
+    for (const file of ["eazyshot.html", "en/eazyshot.html"]) {
+      const page = html(file);
+      const titulos = (page.match(/<h3[^>]*>([^<]+)<\/h3>/g) ?? []).map((h) =>
+        h.replace(/<[^>]+>/g, ""),
+      );
+      const capturas = imagenes(page).filter((img) => img.includes("/funcion-"));
+      assert.equal(capturas.length, 4, `${file} pinta ${capturas.length} capturas, se esperaban 4`);
+      for (const img of capturas) {
+        const alt = img.match(/alt="([^"]*)"/)?.[1] ?? "";
+        assert.ok(alt.length > 0, `${file}: una captura sin alt`);
+        assert.ok(
+          !titulos.includes(alt),
+          `${file}: el alt "${alt}" repite el encabezado que ya está al lado`,
+        );
+      }
+    }
+  });
+
+  test("el CSS publicado atiende prefers-reduced-motion", () => {
+    // El sitio anima el scroll y revela cada tarjeta al entrar en pantalla. Quien
+    // haya pedido menos movimiento en el sistema debe recibir el sitio quieto.
+    const recorrer = (dir) =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+        e.isDirectory() ? recorrer(join(dir, e.name)) : [join(dir, e.name)],
+      );
+    const hojas = recorrer(join(OUT, "_next/static")).filter((f) => f.endsWith(".css"));
+    assert.ok(hojas.length > 0, "no se publicó ninguna hoja de estilos");
+    const css = hojas.map((f) => readFileSync(f, "utf8")).join("\n");
+    assert.match(css, /prefers-reduced-motion/, "el CSS no contempla prefers-reduced-motion");
   });
 });
 
